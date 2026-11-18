@@ -17,35 +17,6 @@
   background: #555555;
 }
 
-/* Rack item physics & 3D styling */
-.rack-perspective {
-  perspective: 1400px;
-  perspective-origin: 50% 35%;
-}
-
-.garment-card {
-  transform-style: preserve-3d;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
-              filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              z-index 0.1s;
-  transform-origin: top center;
-}
-
-.garment-card:hover {
-  transform: translateY(18px) translateZ(90px) scale(1.12) rotateY(0deg) !important;
-  z-index: 50 !important;
-  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.95)) brightness(1.08);
-}
-
-.garment-card:hover .garment-tag {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.garment-card:hover .hanger-hook {
-  transform: translateY(-8px) scale(1.05);
-}
-
 /* Metal rod subtle sheen */
 .metallic-rod {
   background: linear-gradient(180deg, #666666 0%, #d4d4d4 30%, #2b2b2b 70%, #151515 100%);
@@ -68,75 +39,187 @@
 }
 
 
-/* Improved SUDIV-style garment presentation — scoped to the OBSRV rack only. */
-.obsrv-realistic-rack { isolation: isolate; min-height: 380px; }
-.obsrv-realistic-rack .garment-card {
-  transform-origin: 50% 4%;
-  transform-style: preserve-3d;
-  transition: transform .62s cubic-bezier(.18,.76,.2,1), filter .46s ease;
-  filter: brightness(.86) drop-shadow(1px 16px 14px rgba(0,0,0,.86));
-  outline-offset: -8px;
-}
-.obsrv-realistic-rack .garment-card:hover,
-.obsrv-realistic-rack .garment-card:focus-visible {
-  transform: translateZ(95px) scale(1.12) rotateY(0deg) !important;
-  z-index: 100 !important;
-  filter: brightness(1.10) drop-shadow(8px 26px 24px #000) !important;
-}
-.obsrv-realistic-rack .garment-card:focus-visible { outline: 1px solid #d6d6d688; border-radius: 5px; }
-.obsrv-realistic-rack .hanger-hook,
-.obsrv-realistic-rack .garment-card:hover .hanger-hook,
-.obsrv-realistic-rack .garment-card:focus-visible .hanger-hook {
-  transform: none; filter: drop-shadow(1px 5px 4px #000a);
-}
-.obsrv-realistic-rack .garment-card svg { backface-visibility: visible; }
-.obsrv-realistic-rack .garment-card > .aspect-\[3\/4\] { margin-top: -4px; }
-.obsrv-realistic-rack .garment-tag { background: #0b0b0bed; border-color: #ffffff22; }
-.obsrv-realistic-rack .garment-card:focus-visible .garment-tag { opacity:1; transform: translateY(0); }
-@media (max-width: 900px) {
-  .obsrv-realistic-rack {
-    overflow-x: auto; overflow-y: hidden; justify-content: flex-start;
-    min-height: 390px; scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch; padding-bottom: 40px;
-  }
-  .obsrv-realistic-rack .garment-card { scroll-snap-align: center; }
-}
-@media (hover: none) {
-  .obsrv-realistic-rack .garment-card { transform: rotateY(-42deg) scale(.96) !important; filter: brightness(1) !important; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .obsrv-realistic-rack .garment-card,
-  .obsrv-realistic-rack .garment-tag { transition-duration: .01ms; }
-}
-
-
-/* Photographic item stage when real/approved cutouts are supplied. */
-.obsrv-realistic-rack .garment-card img {
-  width: 100%; height: 100%; object-fit: contain;
-  filter: contrast(1.06) drop-shadow(0 16px 15px #000c);
-}
-.obsrv-realistic-rack .garment-card:focus-visible .garment-tag { opacity: 1; }
-@media (prefers-reduced-motion: reduce) {
-  .obsrv-realistic-rack .garment-card img { transition-duration: .01ms; }
-}
-
-
-/* Demo garment photography from one transparent AVIF sprite atlas (3x2). */
+/* Atlas media remains usable in the catalog, cart and expanded viewer. */
 .obsrv-demo-sprite {
-  display: block; position: relative; flex: none;
-  width: min(100%, 60vh); max-height: 100%; aspect-ratio: 1/1;
-  margin-inline: auto; overflow: hidden; isolation: isolate;
-  filter: drop-shadow(0 15px 14px rgba(0,0,0,.7));
+  display:block;
+  position:relative;
+  flex:none;
+  width:min(100%, 60vh);
+  max-height:100%;
+  aspect-ratio:1 / 1;
+  margin-inline:auto;
+  overflow:hidden;
+  isolation:isolate;
+  filter:drop-shadow(0 15px 14px #000b);
 }
-.obsrv-demo-sprite img { display: block; object-fit: fill; margin: 0; max-width: none; }
-.obsrv-realistic-rack .obsrv-demo-sprite {
-  transform: translateY(-44px);
-  filter: drop-shadow(0 20px 14px rgba(0,0,0,.83));
-}
-.obsrv-realistic-rack .garment-card .obsrv-demo-sprite img {
-  max-width: none; width: 300%; height: 200%; object-fit: fill; filter: none;
+.obsrv-demo-sprite img {
+  position:absolute;
+  display:block;
+  max-width:none;
+  margin:0;
+  object-fit:fill;
 }
 
+
+/*
+ * OBSRV garment movement — compared with user-supplied SUDIV reference video.
+ * The hit box, slot and hook position do not move. Only a nested visual rotates.
+ */
+.obsrv-motion-scroll { width:100%; overflow:visible; }
+.obsrv-motion-rack {
+  --obsrv-photo-size: clamp(192px, 17.8vw, 282px);
+  width:min(100%, 1120px);
+  min-height:390px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(6, minmax(0,1fr));
+  position:relative;
+  isolation:isolate;
+  perspective:1350px;
+  perspective-origin:50% 15%;
+}
+.obsrv-motion-item {
+  display:block;
+  position:relative;
+  width:100%;
+  height:380px;
+  padding:0;
+  margin:0;
+  border:0;
+  color:#f4f4f4;
+  text-align:center;
+  background:transparent;
+  overflow:visible;
+  cursor:pointer;
+  outline-offset:-4px;
+  -webkit-tap-highlight-color:transparent;
+}
+.obsrv-motion-item:focus-visible { outline:1px solid #ffffff7f; }
+.obsrv-motion-swing {
+  position:absolute;
+  top:0;
+  left:50%;
+  width:var(--obsrv-photo-size);
+  height:var(--obsrv-photo-size);
+  transform-origin:50% 2%;
+  transform:translateX(-50%) rotateY(var(--obsrv-rest-angle)) scale(var(--obsrv-rest-scale));
+  transform-style:preserve-3d;
+  backface-visibility:visible;
+  filter:brightness(.88) drop-shadow(4px 15px 14px #000b);
+  transition:transform 340ms cubic-bezier(.2,.79,.25,1), filter 290ms ease;
+  pointer-events:none;
+  will-change:transform;
+}
+.obsrv-motion-photo {
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  transform-style:preserve-3d;
+}
+.obsrv-motion-photo .obsrv-demo-sprite {
+  width:100%;
+  height:100%;
+  max-height:none;
+  transform:none;
+  filter:drop-shadow(3px 19px 12px #000a);
+}
+.obsrv-motion-photo .obsrv-demo-sprite img {
+  max-width:none;
+  width:300% !important;
+  height:200% !important;
+  filter:none !important;
+}
+.obsrv-motion-photo > img, .obsrv-motion-photo > svg {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:drop-shadow(3px 16px 10px #0008);
+}
+.obsrv-motion-hanger {
+  position:absolute;
+  width:70%;
+  left:15%;
+  top:0;
+  z-index:3;
+  pointer-events:none;
+  filter:drop-shadow(1px 6px 3px #0008);
+}
+.obsrv-motion-hanger svg { display:block; width:100%; height:auto; }
+.obsrv-motion-item.is-active { z-index:90 !important; }
+.obsrv-motion-item.is-active .obsrv-motion-swing,
+.obsrv-motion-item:focus-visible .obsrv-motion-swing {
+  transform:translateX(-50%) translateY(8px) rotateY(0deg) scale(1.16);
+  filter:brightness(1.12) drop-shadow(10px 26px 23px #000e);
+}
+.obsrv-motion-rack.is-hovering .obsrv-motion-item:not(.is-active) .obsrv-motion-swing {
+  filter:brightness(.78) drop-shadow(2px 13px 12px #000d);
+}
+.obsrv-motion-caption {
+  position:absolute;
+  z-index:12;
+  top:clamp(240px, calc(18vw + 55px), 345px);
+  left:50%;
+  width:max-content;
+  max-width:calc(var(--obsrv-photo-size) * 1.1);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  opacity:0;
+  pointer-events:none;
+  transform:translate(-50%, 7px);
+  transition:opacity 190ms ease 70ms, transform 260ms ease;
+}
+.obsrv-motion-item.is-active .obsrv-motion-caption,
+.obsrv-motion-item:focus-visible .obsrv-motion-caption {
+  opacity:1;
+  transform:translate(-50%, 0);
+}
+.obsrv-motion-name {
+  max-width:100%;
+  font:600 10px/1.45 'Space Grotesk', sans-serif;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  text-wrap:balance;
+}
+.obsrv-motion-price {
+  color:#b2b2b2;
+  font:500 10px/1.4 'Space Grotesk',sans-serif;
+  letter-spacing:.05em;
+}
+@media (max-width:900px) {
+  .obsrv-motion-scroll {
+    overflow-x:auto;
+    overflow-y:hidden;
+    width:100%;
+    padding-bottom:12px;
+    overscroll-behavior-inline:contain;
+    scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .obsrv-motion-scroll::-webkit-scrollbar { display:none; }
+  .obsrv-motion-rack {
+    min-width:900px;
+    width:900px;
+    min-height:325px;
+    --obsrv-photo-size:220px;
+  }
+  .obsrv-motion-item { height:315px; scroll-snap-align:center; }
+  .obsrv-motion-caption { top:255px; }
+}
+@media (hover:none) {
+  .obsrv-motion-item .obsrv-motion-swing {
+    transform:translateX(-50%) rotateY(var(--obsrv-rest-angle)) scale(1);
+  }
+  .obsrv-motion-item:focus-visible .obsrv-motion-swing {
+    transform:translateX(-50%) rotateY(0deg) scale(1.1);
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  .obsrv-motion-swing,.obsrv-motion-caption { transition-duration:.01ms !important; }
+}
 
 /* OBSRV editorial product overlay – photographic, rack-preserving viewer. */
 .obsrv-viewer-overlay {
