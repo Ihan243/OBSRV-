@@ -97,11 +97,13 @@
 .obsrv-motion-item:focus-visible { outline:1px solid #ffffff7f; }
 .obsrv-motion-swing {
   position:absolute;
-  top:0;
+  /* Let the original photographic wire hook cross the rod naturally. */
+  top:-32px;
   left:50%;
   width:var(--obsrv-photo-size);
   height:var(--obsrv-photo-size);
-  transform-origin:50% 2%;
+  /* The pivot coincides with the wooden hanger, so zoom does not detach it. */
+  transform-origin:50% 12%;
   transform:translateX(-50%) rotateY(var(--obsrv-rest-angle)) scale(var(--obsrv-rest-scale));
   transform-style:preserve-3d;
   backface-visibility:visible;
@@ -463,7 +465,7 @@
 
 /* Reference: polished slender rail, rounded caps, and stable curved steel hooks. */
 .obsrv-rack-assembly { width:min(100%,1120px); margin-inline:auto; position:relative; }
-.obsrv-rack-rail-frame { height:12px; width:100%; position:relative; margin-bottom:3px; z-index:5; pointer-events:none; }
+.obsrv-rack-rail-frame { height:12px; width:100%; position:relative; margin-bottom:3px; z-index:120; pointer-events:none; }
 .obsrv-rack-rail-bar {
   position:absolute; left:0; right:0; top:2px; height:8px; border-radius:99px;
   background:linear-gradient(to bottom,#77797c 0%,#f6f6f6 18%,#c4c6c7 35%,#87898b 62%,#343538 90%,#1f2022 100%);
@@ -476,24 +478,15 @@
 }
 .obsrv-rack-rail-cap--left {left:-6px;}
 .obsrv-rack-rail-cap--right {right:-6px;}
-.obsrv-motion-hook {
-  position:absolute; top:-25px; left:50%; width:80px; height:76px;
-  transform:translateX(-50%); z-index:30; pointer-events:none;
-  filter:drop-shadow(0 1px 1px #0008);
-}
-.obsrv-motion-hook svg {display:block;width:100%;height:100%;overflow:visible;}
-.obsrv-motion-photo--with-hanger .obsrv-demo-sprite,
-.obsrv-motion-photo--with-hanger > img {
-  /* Conceal the photographed wire; preserve the wooden hanger and clothing. */
-  clip-path:inset(12.7% 0 0 0);
-}
 .obsrv-motion-hanger {
   width:86px; left:50%; top:14px; transform:translateX(-50%);
   filter:drop-shadow(0 2px 2px #0007);
 }
-.obsrv-motion-hanger svg path:first-of-type {display:none;}
 .obsrv-motion-item.is-active .obsrv-motion-swing,
 .obsrv-motion-item:focus-visible .obsrv-motion-swing {
-  transform:translateX(-50%) translateY(2px) rotateY(0deg) scale(1.16);
+  transform:translateX(-50%) rotateY(0deg) scale(1.16);
 }
-@media(max-width:900px) {.obsrv-rack-assembly{width:900px;}}
+@media(max-width:900px) {
+  .obsrv-rack-assembly{width:900px;}
+  .obsrv-motion-swing{top:-25px;}
+}
