@@ -116,8 +116,7 @@ export const HeroRack = ({ onSelectProduct }) => {
               );
             })}
           </div>
-        </div>
-        </div>
+          </div>
         </div>
 
         {/* Floor Cast Shadow */}
