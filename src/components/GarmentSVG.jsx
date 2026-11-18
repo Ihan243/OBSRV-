@@ -1,5 +1,39 @@
 import React from 'react';
 
+// Tonal fabric lighting: preserves the original OBSRV garment designs and details.
+const shadeFabric = (value, offset) => {
+  const hex = value.replace('#', '');
+  if (!/^[a-f0-9]{6}$/i.test(hex)) return value;
+  return '#' + [0, 2, 4].map((i) => Math.max(0, Math.min(255,
+    parseInt(hex.slice(i, i + 2), 16) + offset)).toString(16).padStart(2, '0')).join('');
+};
+const FabricGradient = ({ product }) => (
+  <defs>
+    <linearGradient id={'obsrv-fabric-' + product.id} x1="0%" y1="0%" x2="100%" y2="15%">
+      <stop offset="0%" stopColor={shadeFabric(product.mainColor, -15)} />
+      <stop offset="19%" stopColor={shadeFabric(product.mainColor, 12)} />
+      <stop offset="39%" stopColor={shadeFabric(product.mainColor, -6)} />
+      <stop offset="66%" stopColor={shadeFabric(product.mainColor, 22)} />
+      <stop offset="84%" stopColor={shadeFabric(product.mainColor, -7)} />
+      <stop offset="100%" stopColor={shadeFabric(product.mainColor, -23)} />
+    </linearGradient>
+  </defs>
+);
+const FabricFolds = ({ product }) => {
+  const light = product.mainColor.toLowerCase() === '#d9d6ce';
+  const gleam = light ? '#191919' : '#f6f6f6';
+  return (
+    <g pointerEvents="none">
+      <path d="M97 116 C109 166 99 253 113 334" stroke={gleam} strokeWidth="9"
+        opacity={light ? '.12' : '.05'} strokeLinecap="round" fill="none" />
+      <path d="M221 116 C205 178 217 263 200 335" stroke={gleam} strokeWidth="12"
+        opacity={light ? '.13' : '.06'} strokeLinecap="round" fill="none" />
+      <path d="M138 143 C145 192 128 244 142 326" stroke="#000000" strokeWidth="8"
+        opacity=".12" strokeLinecap="round" fill="none" />
+    </g>
+  );
+};
+
 export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl select-none" }) => {
   if (!product) return null;
 
@@ -16,6 +50,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
         className={className}
         xmlns="http://www.w3.org/2000/svg"
       >
+        <FabricGradient product={product} />
         <defs>
           <linearGradient
             id={`grad-hoodie-${product.id}`}
@@ -52,13 +87,13 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
         {/* Sleeves Behind/Spread */}
         <path
           d="M 60 90 L 15 220 L 55 235 L 85 140 Z"
-          fill={product.mainColor}
+          fill={'url(#obsrv-fabric-' + product.id + ')'}
           stroke="#1f1f1f"
           strokeWidth="1.5"
         />
         <path
           d="M 260 90 L 305 220 L 265 235 L 235 140 Z"
-          fill={product.mainColor}
+          fill={'url(#obsrv-fabric-' + product.id + ')'}
           stroke="#1f1f1f"
           strokeWidth="1.5"
         />
@@ -78,7 +113,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
           width="184"
           height="24"
           rx="2"
-          fill={product.mainColor}
+          fill={'url(#obsrv-fabric-' + product.id + ')'}
           stroke={detailColor}
           strokeWidth="1.5"
         />
@@ -86,7 +121,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
         {/* Kangaroo Pocket */}
         <path
           d="M 95 240 L 225 240 L 240 330 L 80 330 Z"
-          fill={product.mainColor}
+          fill={'url(#obsrv-fabric-' + product.id + ')'}
           stroke={detailColor}
           strokeWidth="2"
         />
@@ -108,6 +143,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
           strokeLinecap="round"
         />
 
+        <FabricFolds product={product} />
         {/* Official OBSRV® Graphic on Chest / Back */}
         <g transform="translate(110, 150)">
           <text
@@ -167,16 +203,17 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
         className={className}
         xmlns="http://www.w3.org/2000/svg"
       >
+        <FabricGradient product={product} />
         {/* Workwear Jacket Sleeves */}
         <path
           d="M 65 95 L 20 230 L 60 240 L 90 145 Z"
-          fill={product.mainColor}
+          fill={'url(#obsrv-fabric-' + product.id + ')'}
           stroke="#2a2a2a"
           strokeWidth="1.5"
         />
         <path
           d="M 255 95 L 300 230 L 260 240 L 230 145 Z"
-          fill={product.mainColor}
+          fill={'url(#obsrv-fabric-' + product.id + ')'}
           stroke="#2a2a2a"
           strokeWidth="1.5"
         />
@@ -188,7 +225,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
           width="180"
           height="260"
           rx="4"
-          fill={product.mainColor}
+          fill={'url(#obsrv-fabric-' + product.id + ')'}
           stroke="#282828"
           strokeWidth="2"
         />
@@ -250,6 +287,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
           strokeWidth="1.5"
         />
 
+        <FabricFolds product={product} />
         {/* OBSRV Minimal Label */}
         <rect
           x="90"
@@ -282,6 +320,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
         className={className}
         xmlns="http://www.w3.org/2000/svg"
       >
+        <FabricGradient product={product} />
         {/* Waistband */}
         <rect
           x="90"
@@ -289,7 +328,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
           width="140"
           height="28"
           rx="2"
-          fill={product.mainColor}
+          fill={'url(#obsrv-fabric-' + product.id + ')'}
           stroke="#222"
           strokeWidth="1.5"
         />
@@ -304,7 +343,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
         {/* Legs */}
         <path
           d="M 90 108 L 80 360 L 135 360 L 155 180 L 165 180 L 185 360 L 240 360 L 230 108 Z"
-          fill={product.mainColor}
+          fill={'url(#obsrv-fabric-' + product.id + ')'}
           stroke="#262626"
           strokeWidth="1.5"
         />
@@ -329,6 +368,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
           stroke="#333"
           strokeWidth="1.5"
         />
+        <FabricFolds product={product} />
         {/* Drawstring hanging */}
         <path
           d="M 155 100 Q 150 140 148 160"
@@ -366,16 +406,17 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
       className={className}
       xmlns="http://www.w3.org/2000/svg"
     >
+        <FabricGradient product={product} />
       {/* Wide Dropped Sleeves */}
       <path
         d="M 60 90 L 10 180 L 65 195 L 90 130 Z"
-        fill={product.mainColor}
+        fill={'url(#obsrv-fabric-' + product.id + ')'}
         stroke="#222"
         strokeWidth="1.2"
       />
       <path
         d="M 260 90 L 310 180 L 255 195 L 230 130 Z"
-        fill={product.mainColor}
+        fill={'url(#obsrv-fabric-' + product.id + ')'}
         stroke="#222"
         strokeWidth="1.2"
       />
@@ -383,7 +424,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
       {/* Boxy Torso */}
       <path
         d="M 85 90 C 130 80 190 80 235 90 L 245 340 L 75 340 Z"
-        fill={product.mainColor}
+        fill={'url(#obsrv-fabric-' + product.id + ')'}
         stroke="#242424"
         strokeWidth="1.5"
       />
@@ -396,7 +437,8 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
         strokeWidth="2"
       />
 
-      {/* Graphic Motif */}
+      <FabricFolds product={product} />
+        {/* Graphic Motif */}
       <g transform="translate(100, 140)">
         <rect
           x="10"
