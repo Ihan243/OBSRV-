@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
-import { GarmentSVG } from './GarmentSVG';
+import { GarmentMedia } from './GarmentMedia';
 import { BRAND_INFO } from '../data/products';
 
 export const CartDrawer = () => {
@@ -95,7 +95,7 @@ export const CartDrawer = () => {
                 className="flex space-x-4 border-b border-obsrv-border/60 pb-5"
               >
                 <div className="w-16 h-20 bg-neutral-900 border border-neutral-800 flex items-center justify-center p-1 flex-shrink-0">
-                  <GarmentSVG product={item.product} />
+                  <GarmentMedia product={item.product} />
                 </div>
                 <div className="flex-1 flex flex-col justify-between">
                   <div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PRODUCTS, CATEGORIES } from '../data/products';
-import { GarmentSVG } from './GarmentSVG';
+import { GarmentMedia } from './GarmentMedia';
 import { useCart } from '../context/CartContext';
 
 export const CollectionGrid = ({ onSelectProduct }) => {
@@ -72,7 +72,7 @@ export const CollectionGrid = ({ onSelectProduct }) => {
                 </span>
 
                 <div className="w-4/5 h-4/5 group-hover:scale-105 transition-transform duration-500 ease-out flex items-center justify-center">
-                  <GarmentSVG product={prod} />
+                  <GarmentMedia product={prod} />
                 </div>
 
                 <div className="absolute inset-0 bg-obsrv-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-20">

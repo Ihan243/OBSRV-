@@ -119,3 +119,20 @@
 @media (prefers-reduced-motion: reduce) {
   .obsrv-realistic-rack .garment-card img { transition-duration: .01ms; }
 }
+
+
+/* Demo garment photography from one transparent AVIF sprite atlas (3x2). */
+.obsrv-demo-sprite {
+  display: block; position: relative; flex: none;
+  width: min(100%, 60vh); max-height: 100%; aspect-ratio: 1/1;
+  margin-inline: auto; overflow: hidden; isolation: isolate;
+  filter: drop-shadow(0 15px 14px rgba(0,0,0,.7));
+}
+.obsrv-demo-sprite img { display: block; object-fit: fill; margin: 0; max-width: none; }
+.obsrv-realistic-rack .obsrv-demo-sprite {
+  transform: translateY(-44px);
+  filter: drop-shadow(0 20px 14px rgba(0,0,0,.83));
+}
+.obsrv-realistic-rack .garment-card .obsrv-demo-sprite img {
+  max-width: none; width: 300%; height: 200%; object-fit: fill; filter: none;
+}
