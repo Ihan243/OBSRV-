@@ -34,6 +34,41 @@ const FabricFolds = ({ product }) => {
   );
 };
 
+const FabricSurface = ({ product }) => {
+  const id = product.id;
+  let silhouette;
+  if (product.type === 'hoodie') {
+    silhouette = 'M60 90 L15 220 L55 235 L85 140 L80 90 C120 70 200 70 240 90 L235 140 L265 235 L305 220 L260 90 L255 350 Q160 366 65 350 Z';
+  } else if (product.type === 'jacket') {
+    silhouette = 'M65 95 L20 230 L60 240 L90 145 L70 90 H250 L230 145 L260 240 L300 230 L255 95 L250 350 H70 Z';
+  } else if (product.type === 'pants') {
+    silhouette = 'M90 80 H230 V108 L240 360 H185 L165 180 H155 L135 360 H80 L90 108 Z';
+  } else {
+    silhouette = 'M60 90 L10 180 L65 195 L90 130 L85 90 Q160 70 235 90 L230 130 L255 195 L310 180 L260 90 L245 340 H75 Z';
+  }
+  return (
+    <g pointerEvents="none">
+      <defs>
+        <clipPath id={'obsrv-cloth-mask-' + id}><path d={silhouette}/></clipPath>
+        <filter id={'obsrv-grain-' + id} x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency=".34" numOctaves="3" seed="8" stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+      </defs>
+      <g clipPath={'url(#obsrv-cloth-mask-' + id + ')'}>
+        <rect x="0" y="0" width="320" height="400" filter={'url(#obsrv-grain-' + id + ')'}
+          opacity=".075" style={{ mixBlendMode: 'soft-light' }} />
+        <path d="M73 90 C104 188 100 285 109 347" stroke="#fff"
+          strokeWidth="14" opacity=".028" fill="none" />
+        <path d="M232 94 C200 164 215 256 196 351" stroke="#000"
+          strokeWidth="18" opacity=".14" fill="none" />
+        <path d="M159 103 C163 175 151 252 168 349" stroke="#fff"
+          strokeWidth="4" opacity=".045" fill="none" />
+      </g>
+    </g>
+  );
+};
+
 export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl select-none" }) => {
   if (!product) return null;
 
@@ -144,6 +179,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
         />
 
         <FabricFolds product={product} />
+        <FabricSurface product={product} />
         {/* Official OBSRV® Graphic on Chest / Back */}
         <g transform="translate(110, 150)">
           <text
@@ -288,6 +324,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
         />
 
         <FabricFolds product={product} />
+        <FabricSurface product={product} />
         {/* OBSRV Minimal Label */}
         <rect
           x="90"
@@ -369,6 +406,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
           strokeWidth="1.5"
         />
         <FabricFolds product={product} />
+        <FabricSurface product={product} />
         {/* Drawstring hanging */}
         <path
           d="M 155 100 Q 150 140 148 160"
@@ -438,6 +476,7 @@ export const GarmentSVG = ({ product, className = "w-full h-full drop-shadow-2xl
       />
 
       <FabricFolds product={product} />
+        <FabricSurface product={product} />
         {/* Graphic Motif */}
       <g transform="translate(100, 140)">
         <rect

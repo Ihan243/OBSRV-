@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { PRODUCTS } from '../data/products';
-import { GarmentSVG } from './GarmentSVG';
+import { GarmentMedia } from './GarmentMedia';
 import { useCart } from '../context/CartContext';
 
 export const ProductModal = ({ activeIndex, onClose, onNavigate }) => {
-  if (activeIndex === null || activeIndex === undefined) return null;
-
   const product = PRODUCTS[activeIndex];
   const [selectedSize, setSelectedSize] = useState(product?.sizes[0] || 'M');
   const { addToCart } = useCart();
@@ -17,6 +15,7 @@ export const ProductModal = ({ activeIndex, onClose, onNavigate }) => {
   }, [product]);
 
   useEffect(() => {
+    if (activeIndex === null || activeIndex === undefined) return;
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowLeft') onNavigate(-1);
@@ -30,7 +29,7 @@ export const ProductModal = ({ activeIndex, onClose, onNavigate }) => {
       window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'auto';
     };
-  }, [onClose, onNavigate]);
+  }, [activeIndex, onClose, onNavigate]);
 
   if (!product) return null;
 
@@ -80,7 +79,7 @@ export const ProductModal = ({ activeIndex, onClose, onNavigate }) => {
         {/* Active Big Garment Stage */}
         <div className="relative max-w-xl w-full h-[65vh] flex items-center justify-center p-4">
           <div className="relative w-full h-full flex items-center justify-center transition-all duration-500 transform animate-float-slow">
-            <GarmentSVG product={product} />
+            <GarmentMedia product={product} eager />
           </div>
         </div>
 

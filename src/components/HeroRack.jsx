@@ -1,6 +1,6 @@
 import React from 'react';
 import { PRODUCTS } from '../data/products';
-import { GarmentSVG } from './GarmentSVG';
+import { GarmentMedia } from './GarmentMedia';
 
 export const HeroRack = ({ onSelectProduct }) => {
   return (
@@ -66,7 +66,7 @@ export const HeroRack = ({ onSelectProduct }) => {
               onClick={() => onSelectProduct(index)}
             >
               {/* The hook and wooden shoulder form one physical hanger attached to the rail. */}
-              <div className="hanger-hook obsrv-hanger-real w-full flex flex-col items-center -mb-24 relative -top-3 z-30 pointer-events-none">
+              <div className={`hanger-hook obsrv-hanger-real ${prod.rackImage && prod.rackHangerIncluded ? "opacity-0" : ""} w-full flex flex-col items-center -mb-24 relative -top-3 z-30 pointer-events-none`}>
                 <svg viewBox="0 0 220 110" className="w-36 sm:w-40 lg:w-44 h-[110px] overflow-visible" aria-hidden="true">
                   <defs>
                     <linearGradient id={'obsrv-wood-' + prod.id} x1="0%" y1="0%" x2="100%" y2="40%">
@@ -99,12 +99,7 @@ export const HeroRack = ({ onSelectProduct }) => {
 
               {/* Garment Illustration Stage */}
               <div className="w-full aspect-[3/4] relative flex items-center justify-center p-2">
-                {prod.rackImage ? (
-                  <img src={prod.rackImage} alt="" draggable={false}
-                    className="w-full h-full object-contain drop-shadow-2xl select-none" />
-                ) : (
-                  <GarmentSVG product={prod} />
-                )}
+                <GarmentMedia product={prod} eager />
               </div>
 
               {/* Garment Floating Info Tag on Hover */}
