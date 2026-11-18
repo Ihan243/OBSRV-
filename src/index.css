@@ -453,3 +453,9 @@
   .obsrv-viewer-image { animation-duration: .01ms !important; }
   .obsrv-viewer-arrow { transition-duration: .01ms; }
 }
+
+
+/* Clicking any unused dark area closes the product viewer. */
+.obsrv-viewer-overlay { cursor: pointer; }
+.obsrv-viewer-image-stage,
+.obsrv-viewer-information { cursor: default; }
