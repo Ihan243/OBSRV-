@@ -357,8 +357,8 @@
   .obsrv-viewer-close-key { display: none; }
   .obsrv-viewer-showcase { gap: 7px; }
   .obsrv-viewer-image-stage {
-    width: min(73vw, 43svh);
-    height: min(73vw, 43svh);
+    width: min(61vw, 43svh);
+    height: min(61vw, 43svh);
   }
   .obsrv-viewer-arrow { width: 36px; height: 36px; }
   .obsrv-viewer-information { margin-top: 18px; }
