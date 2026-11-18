@@ -66,24 +66,8 @@ export const HeroRack = ({ onSelectProduct }) => {
                   onBlur={() => setHoveredIndex((current) => current === index ? null : current)}
                   onClick={() => onSelectProduct(index)}
                 >
-                  {/* Metal hook remains anchored to the rail while the garment rotates. */}
-                  <span className="obsrv-motion-hook" aria-hidden="true">
-                    <svg viewBox="0 0 100 95" xmlns="http://www.w3.org/2000/svg">
-                      <defs>
-                        <linearGradient id={'obsrv-chrome-hook-' + prod.id} x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor="#3b3e41" />
-                          <stop offset="23%" stopColor="#eee" />
-                          <stop offset="55%" stopColor="#8a8c8f" />
-                          <stop offset="80%" stopColor="#f5f5f5" />
-                          <stop offset="100%" stopColor="#45484b" />
-                        </linearGradient>
-                      </defs>
-                      <path d="M49 10 C40 9 37 15 38 21 C39 27 51 28 55 35 C60 42 51 48 51 55 L51 72"
-                        fill="none" stroke={'url(#obsrv-chrome-hook-' + prod.id + ')'}
-                        strokeWidth="2.65" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-
+                  {/* One physical hanger per mockup; the original photographic hook
+                      and wooden shoulders stay attached throughout hover. */}
                   <span className="obsrv-motion-swing" aria-hidden="true">
                     {!hasPhotoHanger && (
                       <span className="obsrv-motion-hanger">
