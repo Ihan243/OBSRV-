@@ -1,6 +1,9 @@
 export const PRODUCTS = [
   {
     id: "obsrv-01",
+    // Mockup ilustrativo; no representa inventario oficial.
+    demoSprite: { src: "/assets/garments/obsrv-prototype-atlas.avif", index: 0 },
+    rackHangerIncluded: true,
     title: "ARCHIVE 'OBSERVERS' HEAVY HOODIE",
     collection: "VOL. 04 / COSTA RICA CORE",
     price: 38000,
@@ -18,6 +21,9 @@ export const PRODUCTS = [
   },
   {
     id: "obsrv-02",
+    // Mockup ilustrativo; no representa inventario oficial.
+    demoSprite: { src: "/assets/garments/obsrv-prototype-atlas.avif", index: 1 },
+    rackHangerIncluded: true,
     title: "SAN JOSÉ NOCTURNO OVERSIZED TEE",
     collection: "VOL. 04 / GRAPHIC CAPSULE",
     price: 24000,
@@ -35,6 +41,9 @@ export const PRODUCTS = [
   },
   {
     id: "obsrv-03",
+    // Mockup ilustrativo; no representa inventario oficial.
+    demoSprite: { src: "/assets/garments/obsrv-prototype-atlas.avif", index: 2 },
+    rackHangerIncluded: true,
     title: "WEARABLE ART WORKWEAR JACKET",
     collection: "LIMITED RUN / 25 PIECES",
     price: 52000,
@@ -52,6 +61,9 @@ export const PRODUCTS = [
   },
   {
     id: "obsrv-04",
+    // Mockup ilustrativo; no representa inventario oficial.
+    demoSprite: { src: "/assets/garments/obsrv-prototype-atlas.avif", index: 3 },
+    rackHangerIncluded: true,
     title: "CHEPE BRUTALIST CREWNECK",
     collection: "VOL. 04 / AUTUMN WINTER",
     price: 34000,
@@ -69,6 +81,9 @@ export const PRODUCTS = [
   },
   {
     id: "obsrv-05",
+    // Mockup ilustrativo; no representa inventario oficial.
+    demoSprite: { src: "/assets/garments/obsrv-prototype-atlas.avif", index: 4 },
+    rackHangerIncluded: true,
     title: "RAW CARGO PANTS / TACTICAL FIT",
     collection: "ESSENTIALS EDITORIAL",
     price: 44000,
@@ -86,6 +101,9 @@ export const PRODUCTS = [
   },
   {
     id: "obsrv-06",
+    // Mockup ilustrativo; no representa inventario oficial.
+    demoSprite: { src: "/assets/garments/obsrv-prototype-atlas.avif", index: 5 },
+    rackHangerIncluded: true,
     title: "FEW OBSRV ACID WASH T-SHIRT",
     collection: "VOL. 04 / EXCLUSIVE DROP",
     price: 25000,
