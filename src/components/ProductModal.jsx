@@ -96,7 +96,13 @@ export const ProductModal = ({ activeIndex, onClose, onNavigate }) => {
 
   return (
     <div className="obsrv-viewer-overlay" id="productViewer"
-      onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
+      onClick={(event) => {
+        // The layout fills the viewport, so checking target === currentTarget
+        // would miss clicks on the visible dark backdrop inside the layout.
+        // Close from any empty region, but keep product interactions working.
+        if (event.target.closest('[data-viewer-keep-open], button, a, input, select, textarea')) return;
+        onClose();
+      }}>
       <div className="obsrv-viewer-layout" role="dialog" aria-modal="true"
         aria-label={'Vista ampliada: ' + product.title}>
         <button ref={closeRef} type="button" className="obsrv-viewer-close"
@@ -110,7 +116,7 @@ export const ProductModal = ({ activeIndex, onClose, onNavigate }) => {
             <Chevron direction="left" />
           </button>
 
-          <div className="obsrv-viewer-image-stage">
+          <div className="obsrv-viewer-image-stage" data-viewer-keep-open>
             {outgoing && PRODUCTS[outgoing.index] && (
               <div key={'out-' + outgoing.index}
                 className={'obsrv-viewer-image obsrv-viewer-image--exit ' +
@@ -132,7 +138,7 @@ export const ProductModal = ({ activeIndex, onClose, onNavigate }) => {
           </button>
         </div>
 
-        <div className="obsrv-viewer-information" aria-live="polite">
+        <div className="obsrv-viewer-information" data-viewer-keep-open aria-live="polite">
           <span className="obsrv-viewer-counter">{count} / {total}</span>
           <h2 className="obsrv-viewer-title" title={product.title}>{title}</h2>
           <p className="obsrv-viewer-price">{product.priceFormatted}</p>
