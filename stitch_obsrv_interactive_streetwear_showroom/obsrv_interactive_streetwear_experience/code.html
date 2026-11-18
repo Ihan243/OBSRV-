@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OBSRV® — EVERYONE LOOKS. FEW OBSRV. | Digital Showroom</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Fonts: Playfair Display / Cormorant Garamond & Space Grotesk / Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Syncopate:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsrv: {
+              black: '#0B0B0B',
+              card: '#121212',
+              charcoal: '#1A1A1A',
+              muted: '#858585',
+              white: '#F2F0EA',
+              accent: '#E53E3E',
+              border: '#262626'
+            }
+          },
+          fontFamily: {
+            serif: ['"Bodoni Moda"', 'serif'],
+            sans: ['"Space Grotesk"', 'sans-serif'],
+            brand: ['"Syncopate"', 'sans-serif']
+          },
+          keyframes: {
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' },
+            },
+            floatSlow: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-6px)' }
+            }
+          },
+          animation: {
+            marquee: 'marquee 28s linear infinite',
+            'float-slow': 'floatSlow 4s ease-in-out infinite'
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0B0B0B;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #333333;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555555;
+    }
+
+    /* Rack item physics & 3D styling */
+    .rack-perspective {
+      perspective: 1400px;
+      perspective-origin: 50% 35%;
+    }
+    .garment-card {
+      transform-style: preserve-3d;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
+                  filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  z-index 0.1s;
+      transform-origin: top center;
+    }
+    .garment-card:hover {
+      transform: translateY(18px) translateZ(90px) scale(1.12) rotateY(0deg) !important;
+      z-index: 50 !important;
+      filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.95)) brightness(1.08);
+    }
+    .garment-card:hover .garment-tag {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .garment-card:hover .hanger-hook {
+      transform: translateY(-8px) scale(1.05);
+    }
+
+    /* Metal rod subtle sheen */
+    .metallic-rod {
+      background: linear-gradient(180deg, #666666 0%, #d4d4d4 30%, #2b2b2b 70%, #151515 100%);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    }
+
+    /* Noise overlay */
+    .bg-noise {
+      background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+  </style>
+</head>
+<body class="bg-obsrv-black text-obsrv-white font-sans antialiased overflow-x-hidden selection:bg-obsrv-white selection:text-obsrv-black">
+<!-- TOP ANNOUNCEMENT BAR -->
+<header class="fixed top-0 left-0 w-full z-40 bg-obsrv-black/90 backdrop-blur-md border-b border-obsrv-border/40 transition-all duration-300" id="mainHeader">
+<div class="bg-obsrv-charcoal/80 border-b border-white/5 py-1.5 px-4 text-center">
+<p class="text-[10px] tracking-[0.28em] font-medium uppercase text-obsrv-muted">
+        OBSRV® COSTA RICA • NUEVO DROP LIMITADO • ENVÍOS A TODO EL PAÍS &amp; WORLDWIDE
+      </p>
+</div>
+<!-- MAIN NAVBAR -->
+<div class="max-w-[1720px] mx-auto px-6 h-16 flex items-center justify-between">
+<!-- Left Menu Links -->
+<nav class="hidden md:flex items-center space-x-8 text-xs tracking-[0.2em] font-medium">
+<a class="hover:text-white transition-colors duration-200" href="#perchero">PERCHERO</a>
+<a class="hover:text-white transition-colors duration-200" href="#coleccion">COLECCIÓN</a>
+<a class="hover:text-white transition-colors duration-200" href="#editorial">EDITORIAL</a>
+<a class="hover:text-white transition-colors duration-200" href="#manifiesto">MANIFIESTO</a>
+</nav>
+<!-- Center Brand Logo -->
+<div class="flex items-center justify-center flex-1 md:flex-none">
+<a class="group flex flex-col items-center" href="#">
+<span class="font-brand text-2xl md:text-3xl font-bold tracking-[0.25em] text-obsrv-white group-hover:tracking-[0.3em] transition-all duration-300">
+            OBSRV<span class="text-xs align-top font-sans text-obsrv-muted font-normal ml-0.5">®</span>
+</span>
+<span class="text-[8px] tracking-[0.45em] text-obsrv-muted uppercase -mt-1 font-mono">SAN JOSÉ, CR</span>
+</a>
+</div>
+<!-- Right Utility Actions -->
+<div class="flex items-center space-x-6 text-xs tracking-widest">
+<a class="hidden lg:flex items-center space-x-1 text-obsrv-muted hover:text-obsrv-white transition-colors" href="https://www.instagram.com/obsrv.cr/" rel="noopener noreferrer" target="_blank">
+<span>IG: @OBSRV.CR</span>
+<svg class="w-3 h-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+<!-- Cart Trigger Button -->
+<button class="relative p-2.5 rounded-full border border-obsrv-border/70 bg-obsrv-charcoal/50 hover:bg-obsrv-white hover:text-obsrv-black hover:border-obsrv-white transition-all duration-300 flex items-center space-x-2 group" onclick="toggleCart(true)">
+<svg class="w-4 h-4 stroke-current" fill="none" viewbox="0 0 24 24">
+<path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<span class="text-[11px] font-mono font-medium tracking-wider" id="cartCountBadge">0</span>
+</button>
+</div>
+</div>
+</header>
+<!-- ======================================================== -->
+<!-- 1. FULLSCREEN HERO & INTERACTIVE STREETWEAR RACK -->
+<!-- ======================================================== -->
+<section class="relative min-h-screen w-full flex flex-col justify-between pt-24 pb-8 overflow-hidden bg-gradient-to-b from-obsrv-black via-[#0d0d0d] to-obsrv-black" id="perchero">
+<!-- Ambient Background Light & Grid -->
+<div class="absolute inset-0 bg-noise pointer-events-none opacity-40"></div>
+<div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-white/[0.03] to-transparent rounded-full blur-3xl pointer-events-none"></div>
+<!-- Editorial Header within Hero -->
+<div class="max-w-[1600px] mx-auto w-full px-6 pt-6 text-center z-10">
+<div class="inline-flex items-center space-x-3 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-3">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+<span class="text-[10px] tracking-[0.3em] uppercase text-obsrv-white/80 font-mono">DIGITAL SHOWROOM • INTERACTIVE RACK</span>
+</div>
+<h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-obsrv-white">
+        EVERYONE LOOKS. <span class="italic font-normal font-serif text-neutral-400">FEW OBSRV.</span>
+</h1>
+<p class="text-xs uppercase tracking-[0.35em] text-obsrv-muted mt-2 font-mono">
+        Haz hover sobre las prendas para examinarlas • Clic para expandir el visor inmersivo
+      </p>
+</div>
+<!-- MAIN RACK CONTAINER (Occupies 75-85% width desktop) -->
+<div class="relative w-full max-w-[1550px] mx-auto px-4 my-auto py-10 z-10">
+<!-- Upper Support Structure & Metallic Rod -->
+<div class="relative w-full mb-1">
+<!-- Structural Brackets Left & Right -->
+<div class="absolute -top-7 left-8 w-4 h-8 bg-neutral-800 rounded-sm border border-neutral-600 flex flex-col items-center justify-end pb-1 shadow-lg">
+<div class="w-1.5 h-1.5 rounded-full bg-neutral-400"></div>
+</div>
+<div class="absolute -top-7 right-8 w-4 h-8 bg-neutral-800 rounded-sm border border-neutral-600 flex flex-col items-center justify-end pb-1 shadow-lg">
+<div class="w-1.5 h-1.5 rounded-full bg-neutral-400"></div>
+</div>
+<!-- The Metal Rod -->
+<div class="h-3.5 w-full rounded-full metallic-rod relative z-20 flex items-center justify-between px-6">
+<div class="w-2.5 h-2.5 rounded-full bg-neutral-400/40"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-neutral-400/40"></div>
+</div>
+<!-- Rod drop shadow onto garments -->
+<div class="w-full h-8 bg-gradient-to-b from-black/80 to-transparent absolute top-3 left-0 z-10 pointer-events-none"></div>
+</div>
+<!-- Garments Hanging on the Rack (Interactive 3D Perspective) -->
+<div class="rack-perspective relative flex items-start justify-center -space-x-8 sm:-space-x-12 md:-space-x-14 lg:-space-x-16 px-4 py-8 overflow-x-auto no-scrollbar" id="rackGarmentsList">
+<!-- Injected via JavaScript below with high fidelity SVGs & photorealistic mockups -->
+</div>
+<!-- Floor Cast Shadow -->
+<div class="w-4/5 mx-auto h-8 bg-radial from-black via-black/80 to-transparent blur-xl -mt-4 opacity-90 pointer-events-none"></div>
+</div>
+<!-- Rack Bottom Controls & Quick Status -->
+<div class="max-w-[1600px] mx-auto w-full px-6 flex flex-col sm:flex-row items-center justify-between text-xs text-obsrv-muted z-10 space-y-4 sm:space-y-0">
+<div class="flex items-center space-x-3 font-mono text-[11px] tracking-widest">
+<span class="inline-block w-2 h-2 rounded-full bg-neutral-600"></span>
+<span>VOL. 04 / SAN JOSÉ DROP</span>
+<span class="text-neutral-600">|</span>
+<span class="text-obsrv-white/70">6 PIEZAS ACTIVAS</span>
+</div>
+<div class="flex items-center space-x-4">
+<a class="px-6 py-2.5 rounded-full border border-white/20 bg-obsrv-charcoal/70 text-obsrv-white text-[11px] tracking-[0.25em] font-medium uppercase hover:bg-obsrv-white hover:text-obsrv-black hover:border-obsrv-white transition-all duration-300" href="#coleccion">
+          EXPLORAR CATÁLOGO COMPLETO
+        </a>
+</div>
+<div class="font-mono text-[10px] tracking-widest text-neutral-500 hidden md:block">
+        [ DRAG O SCROLL HORIZONTAL DISPONIBLE ]
+      </div>
+</div>
+</section>
+<!-- ======================================================== -->
+<!-- 2. ANIMATED CONTINUOUS BRAND MARQUEE -->
+<!-- ======================================================== -->
+<div class="w-full bg-obsrv-white text-obsrv-black py-3.5 overflow-hidden border-y border-neutral-300 select-none relative z-20">
+<div class="flex whitespace-nowrap animate-marquee font-brand text-xs sm:text-sm font-bold tracking-[0.3em]">
+<span class="mx-6">OBSRV®</span> • 
+      <span class="mx-6 font-serif italic font-normal text-base">EVERYONE LOOKS. FEW OBSRV.</span> • 
+      <span class="mx-6">WEARABLE ART</span> • 
+      <span class="mx-6 font-mono text-xs">HECHO EN COSTA RICA</span> • 
+      <span class="mx-6">SAN JOSÉ STREETWEAR</span> • 
+      <span class="mx-6">LIMITED RUNS ONLY</span> • 
+      <span class="mx-6">OBSRV®</span> • 
+      <span class="mx-6 font-serif italic font-normal text-base">EVERYONE LOOKS. FEW OBSRV.</span> • 
+      <span class="mx-6">WEARABLE ART</span> • 
+      <span class="mx-6 font-mono text-xs">HECHO EN COSTA RICA</span> • 
+      <span class="mx-6">SAN JOSÉ STREETWEAR</span> • 
+      <span class="mx-6">LIMITED RUNS ONLY</span> •
+    </div>
+</div>
+<!-- ======================================================== -->
+<!-- 3. FULLSCREEN EDITORIAL SECTION: CAMPAIGN PHOTOGRAPHY -->
+<!-- ======================================================== -->
+<section class="relative min-h-screen w-full flex items-center justify-center bg-obsrv-black overflow-hidden py-24" id="editorial">
+<!-- Editorial Background Image with Urban San José Vibe -->
+<div class="absolute inset-0 z-0">
+<img alt="OBSRV Streetwear Campaign Editorial" class="w-full h-full object-cover object-center filter grayscale contrast-125 brightness-40 scale-105 transition-transform duration-1000 ease-out hover:scale-100" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-obsrv-black via-obsrv-black/60 to-obsrv-black/80"></div>
+<div class="absolute inset-0 bg-noise opacity-30"></div>
+</div>
+<!-- Editorial Typography Overlay -->
+<div class="relative z-10 max-w-5xl mx-auto px-6 text-center flex flex-col items-center">
+<span class="text-xs uppercase font-mono tracking-[0.4em] text-neutral-400 mb-6 border border-neutral-700/60 bg-black/40 px-4 py-1.5 backdrop-blur-md">
+        EDITORIAL CAMPAIGN • MANIFESTO 01
+      </span>
+<h2 class="font-serif text-5xl sm:text-7xl lg:text-8xl font-normal tracking-tight text-obsrv-white leading-[1.05]">
+        EVERYONE LOOKS.<br/>
+<span class="italic font-light text-neutral-300">FEW OBSRV.</span>
+</h2>
+<p class="font-sans text-lg sm:text-2xl text-neutral-300 font-light tracking-[0.2em] mt-6 uppercase">
+        Wearable Art. San José, Costa Rica.
+      </p>
+<p class="max-w-2xl text-sm sm:text-base text-neutral-400 font-light leading-relaxed mt-4 font-sans">
+        Nacidos en el asfalto josefino. Diseñamos piezas que desafían la mirada casual y exigen atención consciente. Cada prenda es un lienzo editorial confeccionado en cortes oversize pesados y materiales de alta durabilidad.
+      </p>
+<div class="mt-10 flex flex-wrap items-center justify-center gap-5">
+<a class="px-8 py-3.5 bg-obsrv-white text-obsrv-black font-sans text-xs uppercase tracking-[0.25em] font-semibold hover:bg-neutral-200 transition-all duration-300 shadow-xl" href="#coleccion">
+          DESCUBRE OBSRV
+        </a>
+<a class="px-8 py-3.5 border border-white/30 text-obsrv-white font-sans text-xs uppercase tracking-[0.25em] font-medium hover:border-white hover:bg-white/10 transition-all duration-300 backdrop-blur-sm" href="#manifiesto">
+          LEER EL MANIFIESTO
+        </a>
+</div>
+</div>
+</section>
+<!-- ======================================================== -->
+<!-- 4. TRADITIONAL COLLECTION GRID (E-COMMERCE CATALOG) -->
+<!-- ======================================================== -->
+<section class="py-24 px-6 max-w-[1700px] mx-auto w-full border-t border-obsrv-border/40" id="coleccion">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-obsrv-border">
+<div>
+<p class="text-xs uppercase font-mono tracking-[0.3em] text-obsrv-muted mb-2">CATÁLOGO EDITORIAL</p>
+<h2 class="font-serif text-4xl sm:text-5xl font-light text-obsrv-white">
+          COLECCIÓN PERMANENTE &amp; DROPS
+        </h2>
+</div>
+<div class="mt-6 md:mt-0 flex items-center space-x-6 text-xs font-mono text-obsrv-muted">
+<span>MOSTRANDO <strong class="text-obsrv-white">6 PIEZAS</strong></span>
+<span>•</span>
+<span>MONEDA: <strong>CRC (₡)</strong></span>
+</div>
+</div>
+<!-- Products Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-14" id="collectionGrid">
+<!-- Injected via JavaScript -->
+</div>
+</section>
+<!-- ======================================================== -->
+<!-- 5. MANIFESTO PAGE / THE ART OF BEING OBSRV -->
+<!-- ======================================================== -->
+<section class="py-24 px-6 bg-obsrv-charcoal/50 border-t border-obsrv-border relative overflow-hidden" id="manifiesto">
+<div class="max-w-[1500px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Left Column: Typography & Concept -->
+<div class="lg:col-span-6 space-y-8">
+<span class="text-xs font-mono uppercase tracking-[0.4em] text-obsrv-muted">
+          FILOSOFÍA DE MARCA
+        </span>
+<h2 class="font-serif text-4xl sm:text-6xl font-light text-obsrv-white leading-tight">
+          THE ART OF<br/>
+<span class="italic font-normal text-neutral-400">BEING OBSRV.</span>
+</h2>
+<div class="space-y-6 text-neutral-300 text-sm sm:text-base font-light leading-relaxed">
+<p>
+            En un mundo saturado de estímulos rápidos y modas desechables, mirar no es suficiente. <strong>OBSRV</strong> nace en San José, Costa Rica, como una respuesta estética a la uniformidad visual urbana.
+          </p>
+<p>
+            Fusionamos la crudeza del graffiti y el diseño gráfico experimental con la precisión y el calibre de la sastrería editorial contemporánea. Cada silueta, costura y gramaje de tela de 240g–400g está calculado para que la prenda no solo vista, sino que comunique una postura ante el entorno.
+          </p>
+<div class="grid grid-cols-2 gap-6 pt-6 border-t border-white/10 font-mono text-xs">
+<div>
+<span class="block text-obsrv-white font-medium text-sm">SAN JOSÉ ORIGIN</span>
+<span class="text-obsrv-muted">Diseñado y producido con orgullo e identidad costarricense.</span>
+</div>
+<div>
+<span class="block text-obsrv-white font-medium text-sm">LIMITED QUANTITIES</span>
+<span class="text-obsrv-muted">Cero sobreproducción. Drops numerados y exclusivos.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: High Fashion Editorial Collage -->
+<div class="lg:col-span-6 grid grid-cols-2 gap-4">
+<div class="space-y-4">
+<div class="aspect-[3/4] bg-neutral-900 overflow-hidden relative group">
+<img alt="Editorial streetwear pose" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-transform duration-700" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+<div class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-md px-2.5 py-1 text-[9px] font-mono tracking-widest text-white">
+              LOOK 01 / HEAVY COTTON
+            </div>
+</div>
+</div>
+<div class="space-y-4 pt-10">
+<div class="aspect-[3/4] bg-neutral-900 overflow-hidden relative group">
+<img alt="Streetwear San Jose Editorial" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-transform duration-700" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+<div class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-md px-2.5 py-1 text-[9px] font-mono tracking-widest text-white">
+              LOOK 02 / GRAPHIC SERIES
+            </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ======================================================== -->
+<!-- 6. FOOTER -->
+<!-- ======================================================== -->
+<footer class="bg-obsrv-black border-t border-obsrv-border py-16 px-6 text-xs text-obsrv-muted">
+<div class="max-w-[1700px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+<!-- Col 1: Brand -->
+<div class="space-y-4 md:col-span-2">
+<div class="font-brand text-2xl font-bold tracking-[0.25em] text-obsrv-white">
+          OBSRV<span class="text-xs align-top font-sans text-obsrv-muted font-normal ml-0.5">®</span>
+</div>
+<p class="font-serif italic text-base text-neutral-400 max-w-md">
+          “Everyone looks. Few obsrv.”
+        </p>
+<p class="text-neutral-500 max-w-sm font-sans leading-relaxed">
+          Plataforma de streetwear editorial e indumentaria de autor creada en San José, Costa Rica.
+        </p>
+<div class="pt-2 font-mono text-[11px] text-obsrv-white flex items-center space-x-4">
+<a class="hover:underline flex items-center space-x-1" href="https://www.instagram.com/obsrv.cr/" target="_blank">
+<span>INSTAGRAM: @OBSRV.CR</span>
+</a>
+<span>•</span>
+<a class="hover:underline text-emerald-400" href="https://wa.me/50688888888" target="_blank">
+            WHATSAPP PEDIDOS
+          </a>
+</div>
+</div>
+<!-- Col 2: Navigation Links -->
+<div class="space-y-3 font-mono">
+<span class="block text-obsrv-white tracking-widest text-[11px] font-bold uppercase mb-2">EXPLORAR</span>
+<a class="block hover:text-white transition-colors" href="#perchero">Perchero 3D</a>
+<a class="block hover:text-white transition-colors" href="#coleccion">Colección Completa</a>
+<a class="block hover:text-white transition-colors" href="#editorial">Campaña Editorial</a>
+<a class="block hover:text-white transition-colors" href="#manifiesto">Manifiesto OBSRV</a>
+</div>
+<!-- Col 3: Customer Care / Info -->
+<div class="space-y-3 font-mono">
+<span class="block text-obsrv-white tracking-widest text-[11px] font-bold uppercase mb-2">CLIENTES &amp; ENVÍOS</span>
+<span class="block">Envíos Costa Rica: Correos de CR / Mensajería</span>
+<span class="block">Tiempos de entrega: 24 a 48 hrs hábiles</span>
+<span class="block">Políticas de cambios y devoluciones</span>
+<span class="block">Guía de tallas Oversize Fit</span>
+</div>
+</div>
+<div class="max-w-[1700px] mx-auto pt-8 border-t border-obsrv-border/40 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-neutral-600">
+<div>© 2025 OBSRV® COSTA RICA. TODOS LOS DERECHOS RESERVADOS.</div>
+<div class="mt-3 sm:mt-0">DESIGNED AS AN INTERACTIVE DIGITAL SHOWROOM</div>
+</div>
+</footer>
+<!-- ======================================================== -->
+<!-- 7. IN-PAGE IMMERSIVE PRODUCT VIEWER (MODAL OVERLAY) -->
+<!-- ======================================================== -->
+<div class="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col justify-between opacity-0 pointer-events-none transition-all duration-500 ease-out" id="productViewer">
+<!-- Top Bar of Viewer -->
+<div class="w-full max-w-[1700px] mx-auto px-6 py-6 flex items-center justify-between z-20">
+<div class="flex items-center space-x-4">
+<span class="font-brand text-xl font-bold tracking-[0.25em] text-obsrv-white">
+          OBSRV<span class="text-xs align-top font-sans text-obsrv-muted font-normal ml-0.5">®</span>
+</span>
+<span class="text-neutral-600 font-mono text-xs">/</span>
+<span class="font-mono text-xs text-obsrv-muted tracking-widest uppercase" id="viewerCounter">01 / 06</span>
+</div>
+<!-- Close Action -->
+<button class="px-4 py-2 rounded-full border border-white/20 text-xs font-mono uppercase tracking-[0.2em] text-obsrv-white hover:bg-obsrv-white hover:text-obsrv-black transition-all flex items-center space-x-2 group" onclick="closeProductViewer()">
+<span>CERRAR</span>
+<span class="text-neutral-400 group-hover:text-black">ESC</span>
+</button>
+</div>
+<!-- Center Carousel Area with Left / Right Arrows -->
+<div class="relative w-full flex-1 flex items-center justify-center px-4 md:px-16 overflow-hidden">
+<!-- Prev Button -->
+<button class="absolute left-6 md:left-12 z-30 p-4 rounded-full bg-obsrv-charcoal/70 border border-white/10 text-white hover:bg-white hover:text-black transition-all duration-300" onclick="navigateViewer(-1)">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<!-- Active Big Garment Stage -->
+<div class="relative max-w-xl w-full h-[65vh] flex items-center justify-center p-4">
+<div class="relative w-full h-full flex items-center justify-center transition-all duration-500 transform" id="viewerStage">
+<!-- Rendered garment graphic & preview -->
+</div>
+</div>
+<!-- Next Button -->
+<button class="absolute right-6 md:right-12 z-30 p-4 rounded-full bg-obsrv-charcoal/70 border border-white/10 text-white hover:bg-white hover:text-black transition-all duration-300" onclick="navigateViewer(1)">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+<!-- Bottom Controls & Purchasing Panel -->
+<div class="w-full bg-obsrv-card/90 border-t border-obsrv-border/70 backdrop-blur-md px-6 py-6 z-20">
+<div class="max-w-[1500px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
+<!-- Left: Garment Title, Price & Details -->
+<div class="text-center lg:text-left">
+<div class="text-[11px] font-mono uppercase tracking-[0.3em] text-neutral-400 mb-1" id="viewerCollection">
+            DROP 04 • OVERSIZED HEAVYWEIGHT
+          </div>
+<h3 class="font-serif text-2xl sm:text-3xl font-light text-obsrv-white" id="viewerTitle">
+            OBSRV ARCHIVE HOODIE
+          </h3>
+<p class="font-mono text-base font-semibold text-white mt-1" id="viewerPrice">
+            ₡38,000 CRC
+          </p>
+</div>
+<!-- Center: Size Selector -->
+<div class="flex flex-col items-center">
+<span class="text-[10px] font-mono uppercase tracking-widest text-neutral-400 mb-2">SELECCIONA TALLA (OVERSIZE FIT)</span>
+<div class="flex items-center space-x-2" id="sizeSelectorContainer">
+<!-- Injected sizes -->
+</div>
+</div>
+<!-- Right: Add to Cart & Status -->
+<div class="flex items-center space-x-4">
+<button class="px-8 py-3.5 bg-obsrv-white text-obsrv-black font-sans text-xs uppercase tracking-[0.25em] font-bold hover:bg-neutral-200 transition-all duration-300 shadow-xl flex items-center space-x-3" onclick="addCurrentViewerToCart()">
+<svg class="w-4 h-4 stroke-current" fill="none" viewbox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>AGREGAR AL CARRITO</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ======================================================== -->
+<!-- 8. CART DRAWER (SLIDE-OVER PANEL) -->
+<!-- ======================================================== -->
+<div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300" id="cartDrawerBackdrop" onclick="toggleCart(false)"></div>
+<div class="fixed top-0 right-0 h-full w-full max-w-md bg-obsrv-black border-l border-obsrv-border z-50 transform translate-x-full transition-transform duration-400 ease-out flex flex-col justify-between shadow-2xl" id="cartDrawer">
+<!-- Cart Header -->
+<div class="p-6 border-b border-obsrv-border flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<span class="font-brand text-lg font-bold tracking-[0.2em] text-obsrv-white">TU CARRITO</span>
+<span class="text-xs font-mono bg-obsrv-charcoal px-2.5 py-0.5 rounded-full text-obsrv-white" id="cartBadgeInside">0</span>
+</div>
+<button class="p-2 text-obsrv-muted hover:text-white transition-colors" onclick="toggleCart(false)">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+<!-- Cart Items List (Scrollable) -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6" id="cartItemsList">
+<!-- Empty state / Items injected -->
+</div>
+<!-- Cart Footer & Checkout Action -->
+<div class="p-6 bg-obsrv-card border-t border-obsrv-border space-y-4">
+<div class="flex items-center justify-between text-xs font-mono text-neutral-400">
+<span>ENVÍO ESTIMADO (CR)</span>
+<span class="text-emerald-400 uppercase font-medium">Calculado al finalizar</span>
+</div>
+<div class="flex items-center justify-between text-base font-sans font-bold text-obsrv-white border-t border-white/5 pt-3">
+<span>SUBTOTAL</span>
+<span class="font-mono text-lg" id="cartSubtotalText">₡0 CRC</span>
+</div>
+<p class="text-[10px] text-neutral-500 font-mono">
+        Precios en Colones costarricenses (CRC). Pedidos coordinados directamente por pasarela autorizada o WhatsApp oficial de OBSRV®.
+      </p>
+<div class="space-y-2 pt-2">
+<button class="w-full py-4 bg-obsrv-white text-obsrv-black font-sans text-xs uppercase tracking-[0.25em] font-bold hover:bg-neutral-200 transition-all shadow-lg flex items-center justify-center space-x-2" onclick="checkoutOrder()">
+<span>FINALIZAR PEDIDO VÍA WHATSAPP / WEB</span>
+</button>
+<button class="w-full py-2.5 border border-white/10 text-neutral-400 font-mono text-[11px] uppercase tracking-widest hover:text-white hover:border-white/30 transition-all" onclick="toggleCart(false)">
+          CONTINUAR EXPLORANDO
+        </button>
+</div>
+</div>
+</div>
+<!-- TOAST NOTIFICATION -->
+<div class="fixed bottom-6 right-6 z-50 bg-obsrv-white text-obsrv-black px-5 py-3 rounded shadow-2xl font-mono text-xs flex items-center space-x-3 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none" id="toastNotification">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span id="toastMessage">Prenda agregada al carrito</span>
+</div>
+<!-- ======================================================== -->
+<!-- JAVASCRIPT APPLICATION CORE -->
+<!-- ======================================================== -->
+<script>
+    // ----------------------------------------------------------
+    // CATALOG DATABASE: OFFICIAL OBSRV® INSPIRED STREETWEAR LINE
+    // ----------------------------------------------------------
+    const PRODUCTS = [
+      {
+        id: "obsrv-01",
+        title: "ARCHIVE 'OBSERVERS' HEAVY HOODIE",
+        collection: "VOL. 04 / COSTA RICA CORE",
+        price: 38000,
+        priceFormatted: "₡38,000",
+        color: "Deep Black / Bone White",
+        material: "100% French Terry Cotton 420 GSM",
+        sizes: ["S", "M", "L", "XL"],
+        description: "Buzo con corte boxy oversize pesado. Estampado serigráfico de alta densidad 'EVERYONE LOOKS. FEW OBSRV.' en la espalda y logo minimal en el pecho.",
+        // Garment SVG Render Styling
+        type: "hoodie",
+        mainColor: "#111111",
+        accentColor: "#F2F0EA",
+        sideAngle: -14,
+        scale: 0.96
+      },
+      {
+        id: "obsrv-02",
+        title: "SAN JOSÉ NOCTURNO OVERSIZED TEE",
+        collection: "VOL. 04 / GRAPHIC CAPSULE",
+        price: 24000,
+        priceFormatted: "₡24,000",
+        color: "Washed Charcoal",
+        material: "100% Combed Heavy Cotton 260 GSM",
+        sizes: ["M", "L", "XL"],
+        description: "Camiseta de hombros caídos con tratamiento lavado vintage. Gráfica tipográfica brutalista inspirada en la arquitectura del centro josefino.",
+        type: "tee",
+        mainColor: "#1c1c1c",
+        accentColor: "#E53E3E",
+        sideAngle: -7,
+        scale: 0.98
+      },
+      {
+        id: "obsrv-03",
+        title: "WEARABLE ART WORKWEAR JACKET",
+        collection: "LIMITED RUN / 25 PIECES",
+        price: 52000,
+        priceFormatted: "₡52,000",
+        color: "Raw Canvas & Jet Black",
+        material: "Heavyweight Cotton Twill con forro satinado",
+        sizes: ["S", "M", "L"],
+        description: "Chaqueta estructurada tipo chore coat. Cremallera metálica bidireccional y bordado directo tonal OBSRV® en solapa posterior.",
+        type: "jacket",
+        mainColor: "#181818",
+        accentColor: "#858585",
+        sideAngle: 0,
+        scale: 1.02
+      },
+      {
+        id: "obsrv-04",
+        title: "CHEPE BRUTALIST CREWNECK",
+        collection: "VOL. 04 / AUTUMN WINTER",
+        price: 34000,
+        priceFormatted: "₡34,000",
+        color: "Editorial Bone White",
+        material: "Brushed Fleece Cotton 380 GSM",
+        sizes: ["S", "M", "L", "XL"],
+        description: "Sweater cuello redondo con remates anchos de canalé. Silueta drapeada contemporánea con sutil tag de goma en la manga izquierda.",
+        type: "crewneck",
+        mainColor: "#d9d6ce",
+        accentColor: "#0B0B0B",
+        sideAngle: 7,
+        scale: 0.97
+      },
+      {
+        id: "obsrv-05",
+        title: "RAW CARGO PANTS / TACTICAL FIT",
+        collection: "ESSENTIALS EDITORIAL",
+        price: 44000,
+        priceFormatted: "₡44,000",
+        color: "Pitch Black",
+        material: "Ripstop Cotton con detalles de cinch cord",
+        sizes: ["28", "30", "32", "34"],
+        description: "Pantalón de corte holgado con bolsillos laterales asimétricos y ajuste en tobillos para adaptarse a sneakers de caña alta o baja.",
+        type: "pants",
+        mainColor: "#141414",
+        accentColor: "#F2F0EA",
+        sideAngle: 12,
+        scale: 0.95
+      },
+      {
+        id: "obsrv-06",
+        title: "FEW OBSRV ACID WASH T-SHIRT",
+        collection: "VOL. 04 / EXCLUSIVE DROP",
+        price: 25000,
+        priceFormatted: "₡25,000",
+        color: "Acid Mineral Gray",
+        material: "Pre-shrunk 100% Ringspun Cotton 240 GSM",
+        sizes: ["S", "M", "L", "XL"],
+        description: "Acabado mineral único por pieza. Cada estampado lleva numeración de tiraje limitada bordada a mano en el dobladillo inferior.",
+        type: "tee",
+        mainColor: "#262626",
+        accentColor: "#E53E3E",
+        sideAngle: 18,
+        scale: 0.94
+      }
+    ];
+
+    // State Variables
+    let cart = [];
+    let activeViewerIndex = 0;
+    let selectedSize = null;
+
+    // ----------------------------------------------------------
+    // GENERATE REALISTIC GARMENT SVG MOCKUP
+    // ----------------------------------------------------------
+    function renderGarmentSVG(product, isExpanded = false) {
+      const isLight = product.mainColor.toLowerCase() === '#d9d6ce' || product.mainColor.toLowerCase() === '#f2f0ea';
+      const textColor = isLight ? '#0B0B0B' : '#F2F0EA';
+      const detailColor = isLight ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.08)';
+
+      if (product.type === 'hoodie') {
+        return `
+        <svg viewBox="0 0 320 400" class="w-full h-full drop-shadow-2xl select-none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Hoodie Shape -->
+          <defs>
+            <linearGradient id="grad-hoodie-${product.id}" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="${product.mainColor}" />
+              <stop offset="70%" stop-color="${product.mainColor}" />
+              <stop offset="100%" stop-color="#050505" />
+            </linearGradient>
+            <filter id="fabric-${product.id}" x="0%" y="0%" width="100%" height="100%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise"/>
+              <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.04 0"/>
+              <feBlend mode="multiply" in="SourceGraphic" result="blend"/>
+            </filter>
+          </defs>
+
+          <!-- Sleeves Behind/Spread -->
+          <path d="M 60 90 L 15 220 L 55 235 L 85 140 Z" fill="${product.mainColor}" stroke="#1f1f1f" stroke-width="1.5" />
+          <path d="M 260 90 L 305 220 L 265 235 L 235 140 Z" fill="${product.mainColor}" stroke="#1f1f1f" stroke-width="1.5" />
+          
+          <!-- Main Torso -->
+          <path d="M 80 90 C 120 70 200 70 240 90 L 255 350 C 210 355 110 355 65 350 Z" fill="url(#grad-hoodie-${product.id})" stroke="#222" stroke-width="2" />
+          
+          <!-- Ribbed Hem -->
+          <rect x="68" y="340" width="184" height="24" rx="2" fill="${product.mainColor}" stroke="${detailColor}" stroke-width="1.5"/>
+
+          <!-- Kangaroo Pocket -->
+          <path d="M 95 240 L 225 240 L 240 330 L 80 330 Z" fill="${product.mainColor}" stroke="${detailColor}" stroke-width="2" />
+          <path d="M 80 260 L 98 320" stroke="rgba(0,0,0,0.4)" stroke-width="2" />
+          <path d="M 240 260 L 222 320" stroke="rgba(0,0,0,0.4)" stroke-width="2" />
+
+          <!-- Large Dramatic Hood Behind Collar -->
+          <path d="M 105 85 C 105 35 215 35 215 85 C 190 100 130 100 105 85 Z" fill="#0d0d0d" stroke="#252525" stroke-width="2" />
+          <path d="M 130 90 C 145 115 175 115 190 90" fill="none" stroke="${product.accentColor}" stroke-width="2.5" stroke-linecap="round"/>
+
+          <!-- Official OBSRV® Graphic on Chest / Back -->
+          <g transform="translate(110, 150)">
+            <text x="50" y="25" text-anchor="middle" font-family="'Syncopate', sans-serif" font-weight="700" font-size="12" fill="${textColor}" letter-spacing="4">OBSRV®</text>
+            <text x="50" y="42" text-anchor="middle" font-family="'Bodoni Moda', serif" font-style="italic" font-size="9" fill="${product.accentColor}" letter-spacing="1">FEW OBSRV</text>
+            <line x1="20" y1="52" x2="80" y2="52" stroke="${textColor}" stroke-width="0.8" opacity="0.4"/>
+            <text x="50" y="64" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="6" fill="${textColor}" opacity="0.6" letter-spacing="2">09°56'N 84°05'W</text>
+          </g>
+        </svg>`;
+      } else if (product.type === 'jacket') {
+        return `
+        <svg viewBox="0 0 320 400" class="w-full h-full drop-shadow-2xl select-none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Workwear Jacket -->
+          <!-- Sleeves -->
+          <path d="M 65 95 L 20 230 L 60 240 L 90 145 Z" fill="${product.mainColor}" stroke="#2a2a2a" stroke-width="1.5"/>
+          <path d="M 255 95 L 300 230 L 260 240 L 230 145 Z" fill="${product.mainColor}" stroke="#2a2a2a" stroke-width="1.5"/>
+
+          <!-- Body -->
+          <rect x="70" y="90" width="180" height="260" rx="4" fill="${product.mainColor}" stroke="#282828" stroke-width="2" />
+          
+          <!-- Metallic Center Zipper -->
+          <line x1="160" y1="120" x2="160" y2="350" stroke="#888888" stroke-width="3.5" stroke-dasharray="2,1"/>
+          
+          <!-- Shirt Collar -->
+          <polygon points="120,90 160,120 100,120" fill="#242424" stroke="#333"/>
+          <polygon points="200,90 160,120 220,120" fill="#242424" stroke="#333"/>
+
+          <!-- Pockets -->
+          <rect x="85" y="150" width="55" height="65" rx="3" fill="none" stroke="${detailColor}" stroke-width="1.5"/>
+          <rect x="180" y="150" width="55" height="65" rx="3" fill="none" stroke="${detailColor}" stroke-width="1.5"/>
+          <rect x="85" y="245" width="60" height="75" rx="3" fill="none" stroke="${detailColor}" stroke-width="1.5"/>
+          <rect x="175" y="245" width="60" height="75" rx="3" fill="none" stroke="${detailColor}" stroke-width="1.5"/>
+
+          <!-- OBSRV Minimal Label -->
+          <rect x="90" y="190" width="28" height="12" fill="#000" stroke="#fff" stroke-width="0.5"/>
+          <text x="104" y="199" text-anchor="middle" font-family="'Space Grotesk'" font-size="5" fill="#fff" font-weight="bold">OBSRV</text>
+        </svg>`;
+      } else if (product.type === 'pants') {
+        return `
+        <svg viewBox="0 0 320 400" class="w-full h-full drop-shadow-2xl select-none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Waistband -->
+          <rect x="90" y="80" width="140" height="28" rx="2" fill="${product.mainColor}" stroke="#222" stroke-width="1.5"/>
+          <line x1="90" y1="94" x2="230" y2="94" stroke="${detailColor}" stroke-width="1"/>
+          <!-- Legs -->
+          <path d="M 90 108 L 80 360 L 135 360 L 155 180 L 165 180 L 185 360 L 240 360 L 230 108 Z" fill="${product.mainColor}" stroke="#262626" stroke-width="1.5"/>
+          <!-- Cargo Pockets -->
+          <rect x="72" y="180" width="30" height="50" rx="2" fill="#181818" stroke="#333" stroke-width="1.5"/>
+          <rect x="218" y="180" width="30" height="50" rx="2" fill="#181818" stroke="#333" stroke-width="1.5"/>
+          <!-- Drawstring hanging -->
+          <path d="M 155 100 Q 150 140 148 160" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M 165 100 Q 170 140 172 160" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+          <text x="160" y="270" text-anchor="middle" font-family="'Syncopate'" font-size="8" fill="#555" letter-spacing="3">OBSRV®</text>
+        </svg>`;
+      } else {
+        // High quality Oversized T-Shirt / Crewneck
+        return `
+        <svg viewBox="0 0 320 400" class="w-full h-full drop-shadow-2xl select-none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Wide Dropped Sleeves -->
+          <path d="M 60 90 L 10 180 L 65 195 L 90 130 Z" fill="${product.mainColor}" stroke="#222" stroke-width="1.2"/>
+          <path d="M 260 90 L 310 180 L 255 195 L 230 130 Z" fill="${product.mainColor}" stroke="#222" stroke-width="1.2"/>
+          
+          <!-- Boxy Torso -->
+          <path d="M 85 90 C 130 80 190 80 235 90 L 245 340 L 75 340 Z" fill="${product.mainColor}" stroke="#242424" stroke-width="1.5"/>
+
+          <!-- Chunky Collar Rib -->
+          <path d="M 125 85 C 140 102 180 102 195 85 C 180 75 140 75 125 85 Z" fill="#0f0f0f" stroke="#333" stroke-width="2"/>
+          
+          <!-- Graphic Motif -->
+          <g transform="translate(100, 140)">
+            <rect x="10" y="0" width="100" height="120" fill="none" stroke="${textColor}" stroke-width="0.8" opacity="0.2"/>
+            <text x="60" y="40" text-anchor="middle" font-family="'Syncopate', sans-serif" font-weight="700" font-size="11" fill="${textColor}" letter-spacing="3">OBSRV</text>
+            <text x="60" y="65" text-anchor="middle" font-family="'Bodoni Moda', serif" font-style="italic" font-size="18" fill="${product.accentColor}">CR.04</text>
+            <text x="60" y="90" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="7" fill="${textColor}" letter-spacing="2">SAN JOSÉ URBAN STUDY</text>
+          </g>
+        </svg>`;
+      }
+    }
+
+    // ----------------------------------------------------------
+    // RENDER INTERACTIVE RACK
+    // ----------------------------------------------------------
+    function renderInteractiveRack() {
+      const container = document.getElementById('rackGarmentsList');
+      if (!container) return;
+
+      container.innerHTML = PRODUCTS.map((prod, index) => {
+        return `
+        <!-- Garment Item on Hanger -->
+        <div 
+          class="garment-card group relative flex-shrink-0 cursor-pointer w-[190px] sm:w-[220px] md:w-[250px] lg:w-[270px] select-none"
+          style="transform: rotateY(${prod.sideAngle}deg) scale(${prod.scale}); z-index: ${20 + index};"
+          onmouseenter="handleGarmentHover(${index}, true)"
+          onmouseleave="handleGarmentHover(${index}, false)"
+          onclick="openProductViewer(${index})"
+        >
+          <!-- Realistic Wooden & Metallic Hanger Hook -->
+          <div class="hanger-hook w-full flex flex-col items-center transition-transform duration-300 -mb-5 relative z-30">
+            <!-- Steel Hook Loop over Rod -->
+            <div class="w-6 h-9 border-t-2 border-r-2 border-neutral-300 rounded-tr-full rounded-tl-full transform -rotate-12 shadow-sm"></div>
+            <!-- Wooden Hanger Body -->
+            <div class="w-40 sm:w-48 h-3.5 bg-gradient-to-r from-[#2d1e17] via-[#52382c] to-[#2d1e17] rounded-sm shadow-md border-t border-amber-900/40 -mt-1 flex items-center justify-center">
+              <span class="text-[7px] text-amber-200/50 font-mono tracking-widest">OBSRV</span>
+            </div>
+          </div>
+
+          <!-- Garment Illustration Stage -->
+          <div class="w-full aspect-[3/4] relative flex items-center justify-center p-2">
+            ${renderGarmentSVG(prod)}
+          </div>
+
+          <!-- Garment Floating Info Tag on Hover -->
+          <div class="garment-tag absolute -bottom-6 left-1/2 -translate-x-1/2 w-max max-w-[210px] text-center bg-obsrv-black/95 border border-white/20 backdrop-blur-md px-3.5 py-2 rounded shadow-2xl opacity-0 transform translate-y-3 transition-all duration-300 pointer-events-none z-50">
+            <span class="block text-[8px] font-mono tracking-[0.25em] text-neutral-400 uppercase">${prod.collection}</span>
+            <span class="block text-[11px] font-sans font-semibold tracking-wider text-obsrv-white truncate">${prod.title}</span>
+            <span class="block text-xs font-mono font-bold text-white mt-0.5">${prod.priceFormatted}</span>
+            <span class="inline-block mt-1 text-[8px] font-mono text-emerald-400 tracking-wider">● CLIC PARA EXPANDIR</span>
+          </div>
+        </div>
+        `;
+      }).join('');
+    }
+
+    function handleGarmentHover(index, isHovering) {
+      // Audio or visual haptic feedback can be bound here
+    }
+
+    // ----------------------------------------------------------
+    // RENDER COLLECTION GRID
+    // ----------------------------------------------------------
+    function renderCollectionGrid() {
+      const grid = document.getElementById('collectionGrid');
+      if (!grid) return;
+
+      grid.innerHTML = PRODUCTS.map((prod, index) => {
+        return `
+        <div class="group flex flex-col justify-between bg-obsrv-card/40 border border-obsrv-border/80 hover:border-white/30 transition-all duration-300 p-5 rounded-sm">
+          <!-- Upper Stage -->
+          <div class="relative w-full aspect-[4/5] bg-neutral-950 flex items-center justify-center overflow-hidden cursor-pointer" onclick="openProductViewer(${index})">
+            <!-- Tag Drop -->
+            <span class="absolute top-3 left-3 text-[9px] font-mono tracking-widest text-neutral-400 bg-obsrv-black/80 px-2.5 py-1 border border-white/10 z-10">
+              ${prod.collection}
+            </span>
+
+            <div class="w-4/5 h-4/5 group-hover:scale-105 transition-transform duration-500 ease-out">
+              ${renderGarmentSVG(prod)}
+            </div>
+
+            <div class="absolute inset-0 bg-obsrv-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-20">
+              <span class="px-5 py-2.5 bg-obsrv-white text-obsrv-black text-xs font-mono uppercase tracking-widest font-semibold shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                VISUALIZAR PIEZA
+              </span>
+            </div>
+          </div>
+
+          <!-- Product Details -->
+          <div class="mt-5 space-y-2">
+            <div class="flex items-start justify-between">
+              <h3 class="font-sans text-sm font-semibold tracking-wide text-obsrv-white group-hover:text-neutral-200">
+                ${prod.title}
+              </h3>
+              <span class="font-mono text-xs font-bold text-obsrv-white ml-2">
+                ${prod.priceFormatted}
+              </span>
+            </div>
+            
+            <p class="text-[11px] text-neutral-400 font-sans line-clamp-2">
+              ${prod.description}
+            </p>
+
+            <div class="pt-3 border-t border-obsrv-border flex items-center justify-between">
+              <div class="flex items-center space-x-1 font-mono text-[10px] text-neutral-400">
+                <span>TALLAS:</span>
+                ${prod.sizes.map(s => `<span class="px-1 border border-neutral-800">${s}</span>`).join('')}
+              </div>
+              <button onclick="quickAddToCart(${index})" class="text-[11px] font-mono uppercase text-obsrv-white hover:underline flex items-center space-x-1">
+                <span>+ CARRITO</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        `;
+      }).join('');
+    }
+
+    // ----------------------------------------------------------
+    // IMMERSIVE PRODUCT VIEWER (MODAL)
+    // ----------------------------------------------------------
+    function openProductViewer(index) {
+      activeViewerIndex = index;
+      const product = PRODUCTS[index];
+      selectedSize = product.sizes[0]; // default size
+
+      const viewer = document.getElementById('productViewer');
+      viewer.classList.remove('opacity-0', 'pointer-events-none');
+      viewer.classList.add('opacity-100', 'pointer-events-auto');
+
+      updateViewerContent();
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProductViewer() {
+      const viewer = document.getElementById('productViewer');
+      viewer.classList.add('opacity-0', 'pointer-events-none');
+      viewer.classList.remove('opacity-100', 'pointer-events-auto');
+      document.body.style.overflow = 'auto';
+    }
+
+    function navigateViewer(direction) {
+      activeViewerIndex += direction;
+      if (activeViewerIndex < 0) {
+        activeViewerIndex = PRODUCTS.length - 1;
+      } else if (activeViewerIndex >= PRODUCTS.length) {
+        activeViewerIndex = 0;
+      }
+      
+      const stage = document.getElementById('viewerStage');
+      stage.style.opacity = '0';
+      stage.style.transform = direction > 0 ? 'translateX(40px)' : 'translateX(-40px)';
+      
+      setTimeout(() => {
+        updateViewerContent();
+        stage.style.opacity = '1';
+        stage.style.transform = 'translateX(0px)';
+      }, 180);
+    }
+
+    function updateViewerContent() {
+      const product = PRODUCTS[activeViewerIndex];
+      selectedSize = product.sizes[0];
+
+      document.getElementById('viewerCounter').textContent = `0${activeViewerIndex + 1} / 0${PRODUCTS.length}`;
+      document.getElementById('viewerTitle').textContent = product.title;
+      document.getElementById('viewerPrice').textContent = `${product.priceFormatted} CRC`;
+      document.getElementById('viewerCollection').textContent = `${product.collection} • ${product.material}`;
+
+      // Render Stage SVG
+      const stage = document.getElementById('viewerStage');
+      stage.innerHTML = `
+        <div class="w-full max-w-[420px] aspect-[3/4] flex items-center justify-center animate-float-slow">
+          ${renderGarmentSVG(product, true)}
+        </div>
+      `;
+
+      // Render Size Selector
+      const sizeContainer = document.getElementById('sizeSelectorContainer');
+      sizeContainer.innerHTML = product.sizes.map((sz, i) => `
+        <button 
+          onclick="selectViewerSize('${sz}')" 
+          class="size-pill px-4 py-2 text-xs font-mono border ${i === 0 ? 'border-obsrv-white bg-obsrv-white text-obsrv-black font-bold' : 'border-neutral-700 text-neutral-300 hover:border-neutral-400'} rounded transition-all"
+          data-size="${sz}"
+        >
+          ${sz}
+        </button>
+      `).join('');
+    }
+
+    function selectViewerSize(size) {
+      selectedSize = size;
+      const buttons = document.querySelectorAll('.size-pill');
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-size') === size) {
+          btn.className = 'size-pill px-4 py-2 text-xs font-mono border border-obsrv-white bg-obsrv-white text-obsrv-black font-bold rounded transition-all';
+        } else {
+          btn.className = 'size-pill px-4 py-2 text-xs font-mono border border-neutral-700 text-neutral-300 hover:border-neutral-400 rounded transition-all';
+        }
+      });
+    }
+
+    function addCurrentViewerToCart() {
+      const product = PRODUCTS[activeViewerIndex];
+      addToCart(product, selectedSize || product.sizes[0]);
+      showToast(`Agregado: ${product.title} (Talla: ${selectedSize})`);
+    }
+
+    function quickAddToCart(index) {
+      const product = PRODUCTS[index];
+      addToCart(product, product.sizes[0]);
+      showToast(`Agregado: ${product.title} (Talla: ${product.sizes[0]})`);
+    }
+
+    // Keyboard navigation (Esc, Left, Right)
+    window.addEventListener('keydown', (e) => {
+      const viewer = document.getElementById('productViewer');
+      const isViewerOpen = viewer && !viewer.classList.contains('opacity-0');
+      if (!isViewerOpen) return;
+
+      if (e.key === 'Escape') closeProductViewer();
+      if (e.key === 'ArrowLeft') navigateViewer(-1);
+      if (e.key === 'ArrowRight') navigateViewer(1);
+    });
+
+    // ----------------------------------------------------------
+    // SHOPPING CART ENGINE
+    // ----------------------------------------------------------
+    function addToCart(product, size) {
+      const existing = cart.find(item => item.product.id === product.id && item.size === size);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ product, size, quantity: 1 });
+      }
+      updateCartUI();
+      toggleCart(true);
+    }
+
+    function updateQuantity(productId, size, delta) {
+      const item = cart.find(i => i.product.id === productId && i.size === size);
+      if (!item) return;
+
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        cart = cart.filter(i => !(i.product.id === productId && i.size === size));
+      }
+      updateCartUI();
+    }
+
+    function removeFromCart(productId, size) {
+      cart = cart.filter(i => !(i.product.id === productId && i.size === size));
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const totalCount = cart.reduce((acc, curr) => acc + curr.quantity, 0);
+      const subtotal = cart.reduce((acc, curr) => acc + (curr.product.price * curr.quantity), 0);
+
+      document.getElementById('cartCountBadge').textContent = totalCount;
+      document.getElementById('cartBadgeInside').textContent = totalCount;
+      document.getElementById('cartSubtotalText').textContent = `₡${subtotal.toLocaleString()} CRC`;
+
+      const listContainer = document.getElementById('cartItemsList');
+      if (cart.length === 0) {
+        listContainer.innerHTML = `
+          <div class="h-64 flex flex-col items-center justify-center text-center space-y-3 text-obsrv-muted font-mono">
+            <svg class="w-12 h-12 stroke-neutral-700" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <p class="text-xs uppercase tracking-widest">TU CARRITO ESTÁ VACÍO</p>
+            <p class="text-[11px] text-neutral-600 max-w-xs font-sans">Explora el perchero digital de OBSRV® y selecciona tu prenda de streetwear favorita.</p>
+          </div>
+        `;
+        return;
+      }
+
+      listContainer.innerHTML = cart.map(item => `
+        <div class="flex space-x-4 border-b border-obsrv-border/60 pb-5">
+          <div class="w-16 h-20 bg-neutral-900 border border-neutral-800 flex items-center justify-center p-1 flex-shrink-0">
+            ${renderGarmentSVG(item.product)}
+          </div>
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between">
+                <h4 class="text-xs font-sans font-semibold text-obsrv-white leading-tight">${item.product.title}</h4>
+                <button onclick="removeFromCart('${item.product.id}', '${item.size}')" class="text-neutral-500 hover:text-white ml-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+              </div>
+              <span class="text-[10px] font-mono text-neutral-400">TALLA: ${item.size} • ${item.product.color}</span>
+            </div>
+            <div class="flex items-center justify-between mt-2 font-mono text-xs">
+              <div class="flex items-center border border-neutral-700 rounded">
+                <button onclick="updateQuantity('${item.product.id}', '${item.size}', -1)" class="px-2 py-0.5 text-neutral-400 hover:text-white">-</button>
+                <span class="px-2 text-white font-bold">${item.quantity}</span>
+                <button onclick="updateQuantity('${item.product.id}', '${item.size}', 1)" class="px-2 py-0.5 text-neutral-400 hover:text-white">+</button>
+              </div>
+              <span class="font-bold text-obsrv-white">₡${(item.product.price * item.quantity).toLocaleString()}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleCart(open) {
+      const drawer = document.getElementById('cartDrawer');
+      const backdrop = document.getElementById('cartDrawerBackdrop');
+      if (open) {
+        backdrop.classList.remove('opacity-0', 'pointer-events-none');
+        backdrop.classList.add('opacity-100', 'pointer-events-auto');
+        drawer.classList.remove('translate-x-full');
+      } else {
+        backdrop.classList.add('opacity-0', 'pointer-events-none');
+        backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+        drawer.classList.add('translate-x-full');
+      }
+    }
+
+    function checkoutOrder() {
+      if (cart.length === 0) {
+        showToast('Agrega prendas al carrito antes de finalizar.');
+        return;
+      }
+      
+      // WhatsApp message composition for OBSRV Costa Rica
+      let msg = "¡Hola OBSRV®! Quiero realizar el pedido de las siguientes prendas de su showroom interactivo:%0A%0A";
+      let total = 0;
+      cart.forEach((item, i) => {
+        msg += `• ${item.quantity}x ${item.product.title} (Talla: ${item.size}) - ₡${(item.product.price * item.quantity).toLocaleString()}%0A`;
+        total += item.product.price * item.quantity;
+      });
+      msg += `%0ATotal del pedido: ₡${total.toLocaleString()} CRC%0A¿Tienen disponibilidad y número de SINPE Móvil o pasarela para pago?`;
+
+      // Official WhatsApp format (CR Country code +506)
+      const whatsappUrl = `https://wa.me/50688888888?text=${msg}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastMessage').textContent = message;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3500);
+    }
+
+    // ----------------------------------------------------------
+    // INITIALIZATION
+    // ----------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      renderInteractiveRack();
+      renderCollectionGrid();
+      updateCartUI();
+    });
+  </script>
+</body>
+</html>

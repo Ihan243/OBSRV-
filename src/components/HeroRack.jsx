@@ -1,0 +1,126 @@
+import React from 'react';
+import { PRODUCTS } from '../data/products';
+import { GarmentSVG } from './GarmentSVG';
+
+export const HeroRack = ({ onSelectProduct }) => {
+  return (
+    <section className="relative min-h-screen w-full flex flex-col justify-between pt-24 pb-8 overflow-hidden bg-gradient-to-b from-obsrv-black via-[#0d0d0d] to-obsrv-black" id="perchero">
+      {/* Ambient Background Light & Grid */}
+      <div className="absolute inset-0 bg-noise pointer-events-none opacity-40"></div>
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-white/[0.03] to-transparent rounded-full blur-3xl pointer-events-none"></div>
+
+      {/* Editorial Header within Hero */}
+      <div className="max-w-[1600px] mx-auto w-full px-6 pt-6 text-center z-10">
+        <div className="inline-flex items-center space-x-3 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span className="text-[10px] tracking-[0.3em] uppercase text-obsrv-white/80 font-mono">
+            DIGITAL SHOWROOM • INTERACTIVE RACK
+          </span>
+        </div>
+        <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-obsrv-white">
+          EVERYONE LOOKS. <span className="italic font-normal font-serif text-neutral-400">FEW OBSRV.</span>
+        </h1>
+        <p className="text-xs uppercase tracking-[0.35em] text-obsrv-muted mt-2 font-mono">
+          Haz hover sobre las prendas para examinarlas • Clic para expandir el visor inmersivo
+        </p>
+      </div>
+
+      {/* MAIN RACK CONTAINER */}
+      <div className="relative w-full max-w-[1550px] mx-auto px-4 my-auto py-10 z-10">
+        {/* Upper Support Structure & Metallic Rod */}
+        <div className="relative w-full mb-1">
+          {/* Structural Brackets Left & Right */}
+          <div className="absolute -top-7 left-8 w-4 h-8 bg-neutral-800 rounded-sm border border-neutral-600 flex flex-col items-center justify-end pb-1 shadow-lg">
+            <div className="w-1.5 h-1.5 rounded-full bg-neutral-400"></div>
+          </div>
+          <div className="absolute -top-7 right-8 w-4 h-8 bg-neutral-800 rounded-sm border border-neutral-600 flex flex-col items-center justify-end pb-1 shadow-lg">
+            <div className="w-1.5 h-1.5 rounded-full bg-neutral-400"></div>
+          </div>
+
+          {/* The Metal Rod */}
+          <div className="h-3.5 w-full rounded-full metallic-rod relative z-20 flex items-center justify-between px-6">
+            <div className="w-2.5 h-2.5 rounded-full bg-neutral-400/40"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-neutral-400/40"></div>
+          </div>
+          {/* Rod drop shadow onto garments */}
+          <div className="w-full h-8 bg-gradient-to-b from-black/80 to-transparent absolute top-3 left-0 z-10 pointer-events-none"></div>
+        </div>
+
+        {/* Garments Hanging on the Rack (Interactive 3D Perspective) */}
+        <div
+          className="rack-perspective relative flex items-start justify-center -space-x-8 sm:-space-x-12 md:-space-x-14 lg:-space-x-16 px-4 py-8 overflow-x-auto no-scrollbar"
+          id="rackGarmentsList"
+        >
+          {PRODUCTS.map((prod, index) => (
+            <div
+              key={prod.id}
+              className="garment-card group relative flex-shrink-0 cursor-pointer w-[190px] sm:w-[220px] md:w-[250px] lg:w-[270px] select-none"
+              style={{
+                transform: `rotateY(${prod.sideAngle}deg) scale(${prod.scale})`,
+                zIndex: 20 + index,
+              }}
+              onClick={() => onSelectProduct(index)}
+            >
+              {/* Wooden & Metallic Hanger Hook */}
+              <div className="hanger-hook w-full flex flex-col items-center transition-transform duration-300 -mb-5 relative z-30">
+                {/* Steel Hook Loop over Rod */}
+                <div className="w-6 h-9 border-t-2 border-r-2 border-neutral-300 rounded-tr-full rounded-tl-full transform -rotate-12 shadow-sm"></div>
+                {/* Wooden Hanger Body */}
+                <div className="w-40 sm:w-48 h-3.5 bg-gradient-to-r from-[#2d1e17] via-[#52382c] to-[#2d1e17] rounded-sm shadow-md border-t border-amber-900/40 -mt-1 flex items-center justify-center">
+                  <span className="text-[7px] text-amber-200/50 font-mono tracking-widest">
+                    OBSRV
+                  </span>
+                </div>
+              </div>
+
+              {/* Garment Illustration Stage */}
+              <div className="w-full aspect-[3/4] relative flex items-center justify-center p-2">
+                <GarmentSVG product={prod} />
+              </div>
+
+              {/* Garment Floating Info Tag on Hover */}
+              <div className="garment-tag absolute -bottom-6 left-1/2 -translate-x-1/2 w-max max-w-[210px] text-center bg-obsrv-black/95 border border-white/20 backdrop-blur-md px-3.5 py-2 rounded shadow-2xl opacity-0 transform translate-y-3 transition-all duration-300 pointer-events-none z-50">
+                <span className="block text-[8px] font-mono tracking-[0.25em] text-neutral-400 uppercase">
+                  {prod.collection}
+                </span>
+                <span className="block text-[11px] font-sans font-semibold tracking-wider text-obsrv-white truncate">
+                  {prod.title}
+                </span>
+                <span className="block text-xs font-mono font-bold text-white mt-0.5">
+                  {prod.priceFormatted}
+                </span>
+                <span className="inline-block mt-1 text-[8px] font-mono text-emerald-400 tracking-wider">
+                  ● CLIC PARA EXPANDIR
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Floor Cast Shadow */}
+        <div className="w-4/5 mx-auto h-8 bg-radial from-black via-black/80 to-transparent blur-xl -mt-4 opacity-90 pointer-events-none"></div>
+      </div>
+
+      {/* Rack Bottom Controls & Quick Status */}
+      <div className="max-w-[1600px] mx-auto w-full px-6 flex flex-col sm:flex-row items-center justify-between text-xs text-obsrv-muted z-10 space-y-4 sm:space-y-0">
+        <div className="flex items-center space-x-3 font-mono text-[11px] tracking-widest">
+          <span className="inline-block w-2 h-2 rounded-full bg-neutral-600"></span>
+          <span>VOL. 04 / SAN JOSÉ DROP</span>
+          <span className="text-neutral-600">|</span>
+          <span className="text-obsrv-white/70">{PRODUCTS.length} PIEZAS ACTIVAS</span>
+        </div>
+        <div className="flex items-center space-x-4">
+          <a
+            className="px-6 py-2.5 rounded-full border border-white/20 bg-obsrv-charcoal/70 text-obsrv-white text-[11px] tracking-[0.25em] font-medium uppercase hover:bg-obsrv-white hover:text-obsrv-black hover:border-obsrv-white transition-all duration-300"
+            href="#coleccion"
+          >
+            EXPLORAR CATÁLOGO COMPLETO
+          </a>
+        </div>
+        <div className="font-mono text-[10px] tracking-widest text-neutral-500 hidden md:block">
+          [ DRAG O SCROLL HORIZONTAL DISPONIBLE ]
+        </div>
+      </div>
+    </section>
+  );
+};

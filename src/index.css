@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0B0B;
+}
+::-webkit-scrollbar-thumb {
+  background: #333333;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
+/* Rack item physics & 3D styling */
+.rack-perspective {
+  perspective: 1400px;
+  perspective-origin: 50% 35%;
+}
+
+.garment-card {
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
+              filter 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              z-index 0.1s;
+  transform-origin: top center;
+}
+
+.garment-card:hover {
+  transform: translateY(18px) translateZ(90px) scale(1.12) rotateY(0deg) !important;
+  z-index: 50 !important;
+  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.95)) brightness(1.08);
+}
+
+.garment-card:hover .garment-tag {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.garment-card:hover .hanger-hook {
+  transform: translateY(-8px) scale(1.05);
+}
+
+/* Metal rod subtle sheen */
+.metallic-rod {
+  background: linear-gradient(180deg, #666666 0%, #d4d4d4 30%, #2b2b2b 70%, #151515 100%);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+/* Noise overlay */
+.bg-noise {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Hide scrollbar for clean horizontal carousel */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

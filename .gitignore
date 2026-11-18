@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production build
+dist/
+dist-ssr/
+*.local
+
+# Environment & temporary files
+.env
+.env.*
+!.env.example
+.vercel/
+.DS_Store
+Thumbs.db
+dev-server.js
+
+# Project Backups (local only)
+backup_*/
+stitch_la_patata*/
+stitch_sistema*/
+*.zip
+push.bat
