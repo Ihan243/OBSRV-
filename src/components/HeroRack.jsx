@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PRODUCTS } from '../data/products';
 import { GarmentMedia } from './GarmentMedia';
 
 export const HeroRack = ({ onSelectProduct }) => {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
   return (
     <section className="relative min-h-screen w-full flex flex-col justify-between pt-24 pb-8 overflow-hidden bg-gradient-to-b from-obsrv-black via-[#0d0d0d] to-obsrv-black" id="perchero">
       {/* Ambient Background Light & Grid */}
@@ -46,79 +47,68 @@ export const HeroRack = ({ onSelectProduct }) => {
           <div className="w-full h-8 bg-gradient-to-b from-black/80 to-transparent absolute top-3 left-0 z-10 pointer-events-none"></div>
         </div>
 
-        {/* Garments Hanging on the Rack (Interactive 3D Perspective) */}
-        <div
-          className="rack-perspective obsrv-realistic-rack relative flex items-start justify-center -space-x-12 sm:-space-x-16 md:-space-x-20 lg:-space-x-24 px-4 pt-0 pb-8 overflow-visible"
-          id="rackGarmentsList"
-        >
-          {PRODUCTS.map((prod, index) => (
-            <div
-              key={prod.id}
-              role="button"
-              tabIndex={0}
-              aria-label={`Ver ${prod.title}, ${prod.priceFormatted}`}
-              onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onSelectProduct(index); } }}
-              className="garment-card group relative flex-shrink-0 cursor-pointer w-[190px] sm:w-[220px] md:w-[250px] lg:w-[270px] select-none"
-              style={{
-                transform: `rotateY(${(index % 2 === 0 ? -1 : 1) * (70 + (index % 3) * 4)}deg) scale(${prod.scale})`,
-                zIndex: 20 + index,
-              }}
-              onClick={() => onSelectProduct(index)}
-            >
-              {/* The hook and wooden shoulder form one physical hanger attached to the rail. */}
-              <div className={`hanger-hook obsrv-hanger-real ${(prod.rackImage || prod.demoSprite) && prod.rackHangerIncluded ? "opacity-0" : ""} w-full flex flex-col items-center -mb-24 relative -top-3 z-30 pointer-events-none`}>
-                <svg viewBox="0 0 220 110" className="w-36 sm:w-40 lg:w-44 h-[110px] overflow-visible" aria-hidden="true">
-                  <defs>
-                    <linearGradient id={'obsrv-wood-' + prod.id} x1="0%" y1="0%" x2="100%" y2="40%">
-                      <stop offset="0%" stopColor="#28170f" />
-                      <stop offset="26%" stopColor="#754b34" />
-                      <stop offset="53%" stopColor="#9a6a48" />
-                      <stop offset="85%" stopColor="#452a1f" />
-                      <stop offset="100%" stopColor="#24150e" />
-                    </linearGradient>
-                    <linearGradient id={'obsrv-hook-' + prod.id} x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#434343" />
-                      <stop offset="35%" stopColor="#e4e5e5" />
-                      <stop offset="76%" stopColor="#66686a" />
-                      <stop offset="100%" stopColor="#282828" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M110 48 V25 C110 16 124 16 124 8 C124 2 119 1 114 3"
-                    fill="none" stroke={'url(#obsrv-hook-' + prod.id + ')'} strokeWidth="4"
-                    strokeLinecap="round" />
-                  <path d="M106 49 Q110 43 114 49 L193 82 Q199 86 191 90 H29 Q21 86 27 82 Z"
-                    fill={'url(#obsrv-wood-' + prod.id + ')'} stroke="#382116" strokeWidth="1.5" />
-                  <path d="M32 83 L109 52 Q110 52 112 52 L188 83"
-                    fill="none" stroke="#e3a87d" strokeOpacity=".4" strokeWidth="1.5" />
-                  <path d="M32 87 H187" fill="none" stroke="#170e09" strokeOpacity=".65" strokeWidth="2" />
-                  <text x="110" y="85" textAnchor="middle" fontSize="8"
-                    fontFamily="sans-serif" fontWeight="700" letterSpacing="2"
-                    fill="#e1b18a" opacity=".7">OBSRV</text>
-                </svg>
-              </div>
-
-              {/* Garment Illustration Stage */}
-              <div className="w-full aspect-[3/4] relative flex items-center justify-center p-2">
-                <GarmentMedia product={prod} eager />
-              </div>
-
-              {/* Garment Floating Info Tag on Hover */}
-              <div className="garment-tag absolute -bottom-6 left-1/2 -translate-x-1/2 w-max max-w-[210px] text-center bg-obsrv-black/95 border border-white/20 backdrop-blur-md px-3.5 py-2 rounded shadow-2xl opacity-0 transform translate-y-3 transition-all duration-300 pointer-events-none z-50">
-                <span className="block text-[8px] font-mono tracking-[0.25em] text-neutral-400 uppercase">
-                  {prod.collection}
-                </span>
-                <span className="block text-[11px] font-sans font-semibold tracking-wider text-obsrv-white truncate">
-                  {prod.title}
-                </span>
-                <span className="block text-xs font-mono font-bold text-white mt-0.5">
-                  {prod.priceFormatted}
-                </span>
-                <span className="inline-block mt-1 text-[8px] font-mono text-emerald-400 tracking-wider">
-                  ● CLIC PARA EXPANDIR
-                </span>
-              </div>
-            </div>
-          ))}
+        {/* The hang point is fixed: only the garment turns from profile to front. */}
+        <div className="obsrv-motion-scroll" aria-label="Perchero de prendas OBSRV">
+          <div
+            className={'obsrv-motion-rack' + (hoveredIndex !== null ? ' is-hovering' : '')}
+            id="rackGarmentsList"
+            role="group"
+            onPointerLeave={() => setHoveredIndex(null)}
+          >
+            {PRODUCTS.map((prod, index) => {
+              const active = hoveredIndex === index;
+              const hasPhotoHanger = (prod.rackImage || prod.demoSprite) && prod.rackHangerIncluded;
+              const angle = (index % 2 === 0 ? -1 : 1) * (69 + (index % 3) * 3);
+              return (
+                <button
+                  type="button"
+                  key={prod.id}
+                  className={'obsrv-motion-item' + (active ? ' is-active' : '')}
+                  style={{
+                    '--obsrv-rest-angle': angle + 'deg',
+                    '--obsrv-rest-scale': prod.scale || 1,
+                    zIndex: active ? 90 : 10 + index,
+                  }}
+                  aria-label={'Ver ' + prod.title + ', ' + prod.priceFormatted}
+                  onPointerEnter={(event) => {
+                    if (event.pointerType !== 'touch') setHoveredIndex(index);
+                  }}
+                  onFocus={() => setHoveredIndex(index)}
+                  onBlur={() => setHoveredIndex((current) => current === index ? null : current)}
+                  onClick={() => onSelectProduct(index)}
+                >
+                  <span className="obsrv-motion-swing" aria-hidden="true">
+                    {!hasPhotoHanger && (
+                      <span className="obsrv-motion-hanger">
+                        <svg viewBox="0 0 220 110" aria-hidden="true">
+                          <defs>
+                            <linearGradient id={'motion-wood-' + prod.id} x1="0%" y1="0%" x2="100%" y2="40%">
+                              <stop offset="0%" stopColor="#291910" />
+                              <stop offset="37%" stopColor="#8c5d40" />
+                              <stop offset="78%" stopColor="#52301e" />
+                              <stop offset="100%" stopColor="#27170d" />
+                            </linearGradient>
+                          </defs>
+                          <path d="M110 47V21c0-7 14-8 14-15 0-6-8-7-11-3" fill="none"
+                            stroke="#b8babe" strokeWidth="4" strokeLinecap="round" />
+                          <path d="M105 48 Q110 41 115 48L192 82Q201 88 189 92H31Q19 88 28 82Z"
+                            fill={'url(#motion-wood-' + prod.id + ')'} stroke="#322017" strokeWidth="2"/>
+                          <path d="M36 83L109 53 184 83" fill="none" stroke="#d3a17a" opacity=".4" strokeWidth="2"/>
+                        </svg>
+                      </span>
+                    )}
+                    <span className="obsrv-motion-photo">
+                      <GarmentMedia product={prod} eager />
+                    </span>
+                  </span>
+                  <span className="obsrv-motion-caption" aria-hidden="true">
+                    <span className="obsrv-motion-name">{prod.title}</span>
+                    <span className="obsrv-motion-price">{prod.priceFormatted}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Floor Cast Shadow */}
