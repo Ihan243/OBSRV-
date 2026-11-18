@@ -99,7 +99,12 @@ export const HeroRack = ({ onSelectProduct }) => {
 
               {/* Garment Illustration Stage */}
               <div className="w-full aspect-[3/4] relative flex items-center justify-center p-2">
-                <GarmentSVG product={prod} />
+                {prod.rackImage ? (
+                  <img src={prod.rackImage} alt="" draggable={false}
+                    className="w-full h-full object-contain drop-shadow-2xl select-none" />
+                ) : (
+                  <GarmentSVG product={prod} />
+                )}
               </div>
 
               {/* Garment Floating Info Tag on Hover */}
