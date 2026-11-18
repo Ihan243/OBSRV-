@@ -66,3 +66,45 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+
+/* Improved SUDIV-style garment presentation — scoped to the OBSRV rack only. */
+.obsrv-realistic-rack { isolation: isolate; min-height: 380px; }
+.obsrv-realistic-rack .garment-card {
+  transform-origin: 50% 4%;
+  transform-style: preserve-3d;
+  transition: transform .62s cubic-bezier(.18,.76,.2,1), filter .46s ease;
+  filter: brightness(.86) drop-shadow(1px 16px 14px rgba(0,0,0,.86));
+  outline-offset: -8px;
+}
+.obsrv-realistic-rack .garment-card:hover,
+.obsrv-realistic-rack .garment-card:focus-visible {
+  transform: translateZ(95px) scale(1.12) rotateY(0deg) !important;
+  z-index: 100 !important;
+  filter: brightness(1.10) drop-shadow(8px 26px 24px #000) !important;
+}
+.obsrv-realistic-rack .garment-card:focus-visible { outline: 1px solid #d6d6d688; border-radius: 5px; }
+.obsrv-realistic-rack .hanger-hook,
+.obsrv-realistic-rack .garment-card:hover .hanger-hook,
+.obsrv-realistic-rack .garment-card:focus-visible .hanger-hook {
+  transform: none; filter: drop-shadow(1px 5px 4px #000a);
+}
+.obsrv-realistic-rack .garment-card svg { backface-visibility: visible; }
+.obsrv-realistic-rack .garment-card > .aspect-\[3\/4\] { margin-top: -4px; }
+.obsrv-realistic-rack .garment-tag { background: #0b0b0bed; border-color: #ffffff22; }
+.obsrv-realistic-rack .garment-card:focus-visible .garment-tag { opacity:1; transform: translateY(0); }
+@media (max-width: 900px) {
+  .obsrv-realistic-rack {
+    overflow-x: auto; overflow-y: hidden; justify-content: flex-start;
+    min-height: 390px; scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch; padding-bottom: 40px;
+  }
+  .obsrv-realistic-rack .garment-card { scroll-snap-align: center; }
+}
+@media (hover: none) {
+  .obsrv-realistic-rack .garment-card { transform: rotateY(-42deg) scale(.96) !important; filter: brightness(1) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .obsrv-realistic-rack .garment-card,
+  .obsrv-realistic-rack .garment-tag { transition-duration: .01ms; }
+}

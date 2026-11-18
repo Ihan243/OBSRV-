@@ -38,7 +38,7 @@ export const HeroRack = ({ onSelectProduct }) => {
           </div>
 
           {/* The Metal Rod */}
-          <div className="h-3.5 w-full rounded-full metallic-rod relative z-20 flex items-center justify-between px-6">
+          <div className="h-2.5 w-full rounded-full metallic-rod relative z-20 flex items-center justify-between px-6">
             <div className="w-2.5 h-2.5 rounded-full bg-neutral-400/40"></div>
             <div className="w-2.5 h-2.5 rounded-full bg-neutral-400/40"></div>
           </div>
@@ -48,34 +48,63 @@ export const HeroRack = ({ onSelectProduct }) => {
 
         {/* Garments Hanging on the Rack (Interactive 3D Perspective) */}
         <div
-          className="rack-perspective relative flex items-start justify-center -space-x-8 sm:-space-x-12 md:-space-x-14 lg:-space-x-16 px-4 py-8 overflow-x-auto no-scrollbar"
+          className="rack-perspective obsrv-realistic-rack relative flex items-start justify-center -space-x-12 sm:-space-x-16 md:-space-x-20 lg:-space-x-24 px-4 pt-0 pb-8 overflow-visible"
           id="rackGarmentsList"
         >
           {PRODUCTS.map((prod, index) => (
             <div
               key={prod.id}
+              role="button"
+              tabIndex={0}
+              aria-label={`Ver ${prod.title}, ${prod.priceFormatted}`}
+              onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onSelectProduct(index); } }}
               className="garment-card group relative flex-shrink-0 cursor-pointer w-[190px] sm:w-[220px] md:w-[250px] lg:w-[270px] select-none"
               style={{
-                transform: `rotateY(${prod.sideAngle}deg) scale(${prod.scale})`,
+                transform: `rotateY(${(index % 2 === 0 ? -1 : 1) * (70 + (index % 3) * 4)}deg) scale(${prod.scale})`,
                 zIndex: 20 + index,
               }}
               onClick={() => onSelectProduct(index)}
             >
-              {/* Wooden & Metallic Hanger Hook */}
-              <div className="hanger-hook w-full flex flex-col items-center transition-transform duration-300 -mb-5 relative z-30">
-                {/* Steel Hook Loop over Rod */}
-                <div className="w-6 h-9 border-t-2 border-r-2 border-neutral-300 rounded-tr-full rounded-tl-full transform -rotate-12 shadow-sm"></div>
-                {/* Wooden Hanger Body */}
-                <div className="w-40 sm:w-48 h-3.5 bg-gradient-to-r from-[#2d1e17] via-[#52382c] to-[#2d1e17] rounded-sm shadow-md border-t border-amber-900/40 -mt-1 flex items-center justify-center">
-                  <span className="text-[7px] text-amber-200/50 font-mono tracking-widest">
-                    OBSRV
-                  </span>
-                </div>
+              {/* The hook and wooden shoulder form one physical hanger attached to the rail. */}
+              <div className="hanger-hook obsrv-hanger-real w-full flex flex-col items-center -mb-24 relative -top-3 z-30 pointer-events-none">
+                <svg viewBox="0 0 220 110" className="w-36 sm:w-40 lg:w-44 h-[110px] overflow-visible" aria-hidden="true">
+                  <defs>
+                    <linearGradient id={'obsrv-wood-' + prod.id} x1="0%" y1="0%" x2="100%" y2="40%">
+                      <stop offset="0%" stopColor="#28170f" />
+                      <stop offset="26%" stopColor="#754b34" />
+                      <stop offset="53%" stopColor="#9a6a48" />
+                      <stop offset="85%" stopColor="#452a1f" />
+                      <stop offset="100%" stopColor="#24150e" />
+                    </linearGradient>
+                    <linearGradient id={'obsrv-hook-' + prod.id} x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#434343" />
+                      <stop offset="35%" stopColor="#e4e5e5" />
+                      <stop offset="76%" stopColor="#66686a" />
+                      <stop offset="100%" stopColor="#282828" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M110 48 V25 C110 16 124 16 124 8 C124 2 119 1 114 3"
+                    fill="none" stroke={'url(#obsrv-hook-' + prod.id + ')'} strokeWidth="4"
+                    strokeLinecap="round" />
+                  <path d="M106 49 Q110 43 114 49 L193 82 Q199 86 191 90 H29 Q21 86 27 82 Z"
+                    fill={'url(#obsrv-wood-' + prod.id + ')'} stroke="#382116" strokeWidth="1.5" />
+                  <path d="M32 83 L109 52 Q110 52 112 52 L188 83"
+                    fill="none" stroke="#e3a87d" strokeOpacity=".4" strokeWidth="1.5" />
+                  <path d="M32 87 H187" fill="none" stroke="#170e09" strokeOpacity=".65" strokeWidth="2" />
+                  <text x="110" y="85" textAnchor="middle" fontSize="8"
+                    fontFamily="sans-serif" fontWeight="700" letterSpacing="2"
+                    fill="#e1b18a" opacity=".7">OBSRV</text>
+                </svg>
               </div>
 
               {/* Garment Illustration Stage */}
               <div className="w-full aspect-[3/4] relative flex items-center justify-center p-2">
-                <GarmentSVG product={prod} />
+                {prod.rackImage ? (
+                  <img src={prod.rackImage} alt="" draggable={false}
+                    className="w-full h-full object-contain drop-shadow-2xl select-none" />
+                ) : (
+                  <GarmentSVG product={prod} />
+                )}
               </div>
 
               {/* Garment Floating Info Tag on Hover */}
